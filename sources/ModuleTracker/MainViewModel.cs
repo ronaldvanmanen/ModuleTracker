@@ -17,6 +17,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System.Windows;
 using System.Windows.Input;
+using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker
 {
@@ -40,6 +41,7 @@ namespace ModuleTracker
             var moduleFileNames = OpenFileService.ShowDialog("Open Module...", "Scream Tracker 3|*.s3m");
             foreach (var moduleFileName in moduleFileNames)
             {
+                var module = S3MModule.Deserialize(moduleFileName);
             }
         }
 

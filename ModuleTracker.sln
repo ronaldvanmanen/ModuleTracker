@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{E9E64B29
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleTracker.Formats.S3M", "sources\ModuleTracker.Formats.S3M\ModuleTracker.Formats.S3M.csproj", "{5A2BD384-7E78-460F-96C3-F48E258A3049}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,12 +35,17 @@ Global
 		{80908D04-D22B-4362-BD0A-BCE94406FA12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80908D04-D22B-4362-BD0A-BCE94406FA12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80908D04-D22B-4362-BD0A-BCE94406FA12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A2BD384-7E78-460F-96C3-F48E258A3049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A2BD384-7E78-460F-96C3-F48E258A3049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A2BD384-7E78-460F-96C3-F48E258A3049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A2BD384-7E78-460F-96C3-F48E258A3049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{80908D04-D22B-4362-BD0A-BCE94406FA12} = {56C1F9C4-D619-4D22-BE96-427531266BAB}
+		{5A2BD384-7E78-460F-96C3-F48E258A3049} = {56C1F9C4-D619-4D22-BE96-427531266BAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DFC014AF-1F31-4278-876B-CB02D65BA280}
