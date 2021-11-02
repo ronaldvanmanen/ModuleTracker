@@ -18,6 +18,8 @@ using Microsoft.Toolkit.Mvvm.Input;
 using System.Windows;
 using System.Windows.Input;
 using ModuleTracker.Formats.S3M;
+using ModuleTracker.Mvvm.S3M;
+using System.Collections.ObjectModel;
 
 namespace ModuleTracker
 {
@@ -29,11 +31,14 @@ namespace ModuleTracker
 
         public ICommand ExitCommand { get; }
 
+        public ObservableCollection<S3MModuleViewModel> Modules { get; }
+
         public MainViewModel(IOpenFileService openFileService)
         {
             OpenFileService = openFileService ?? throw new System.ArgumentNullException(nameof(openFileService));
             OpenFileCommand = new RelayCommand(ExecuteOpenFile);
             ExitCommand = new RelayCommand(ExecuteExit);
+            Modules = new ObservableCollection<S3MModuleViewModel>();
         }
 
         private void ExecuteOpenFile()
@@ -42,6 +47,8 @@ namespace ModuleTracker
             foreach (var moduleFileName in moduleFileNames)
             {
                 var module = S3MModule.Deserialize(moduleFileName);
+                var viewModel = new S3MModuleViewModel(module);
+                Modules.Add(viewModel);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿<!-- This file is part of Module Tracker.
+﻿<!-- 
+     This file is part of Module Tracker.
 
      Module Tracker is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -37,5 +38,17 @@
                 <MenuItem Header="E_xit" Command="{Binding Path=ExitCommand}" />
             </MenuItem>
         </Menu>
+        <TabControl Grid.Row="1" ItemsSource="{Binding Modules}">
+            <TabControl.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <Label Content="{Binding Path=Title}"/>
+                </HierarchicalDataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding}"/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
     </Grid>
 </Window>
