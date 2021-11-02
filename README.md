@@ -5,6 +5,7 @@ A module tracker written in C#.
 
 * [Code of Conduct](#code-of-conduct)
 * [License](#license)
+* [Languages and Frameworks](#languages-and-frameworks)
 
 ### Code of Conduct
 
@@ -15,3 +16,7 @@ This project has adopted the [Contributor Covenant Code of Conduct](https://www.
 Copyright (c) Ronald van Manen. All rights reserved.
 Licensed under the GNU LGPL version 3.
 See [LICENSE](LICENSE) in the project root for license information.
+
+### Languages and Frameworks
+
+ModuleTracker uses C# as its primary development language and .NET 5 as its primary target framework.
