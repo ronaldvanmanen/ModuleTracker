@@ -31,6 +31,7 @@ namespace ModuleTracker
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+            services.AddSingleton<IOpenFileService, OpenFileService>();
             services.AddTransient<MainViewModel>();
             return services.BuildServiceProvider();
         }

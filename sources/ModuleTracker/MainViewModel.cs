@@ -20,13 +20,27 @@ using System.Windows.Input;
 
 namespace ModuleTracker
 {
-    public sealed class MainViewModel : ObservableObject
+    internal sealed class MainViewModel : ObservableObject
     {
+        private IOpenFileService OpenFileService { get; }
+
+        public ICommand OpenFileCommand { get; }
+
         public ICommand ExitCommand { get; }
 
-        public MainViewModel()
+        public MainViewModel(IOpenFileService openFileService)
         {
+            OpenFileService = openFileService ?? throw new System.ArgumentNullException(nameof(openFileService));
+            OpenFileCommand = new RelayCommand(ExecuteOpenFile);
             ExitCommand = new RelayCommand(ExecuteExit);
+        }
+
+        private void ExecuteOpenFile()
+        {
+            var moduleFileNames = OpenFileService.ShowDialog("Open Module...", "Scream Tracker 3|*.s3m");
+            foreach (var moduleFileName in moduleFileNames)
+            {
+            }
         }
 
         private void ExecuteExit()

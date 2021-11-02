@@ -13,21 +13,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace ModuleTracker
 {
-    /// <summary>
-    /// Interaction logic for MainView.xaml
-    /// </summary>
-    internal partial class MainView : Window
+    internal interface IOpenFileService
     {
-        public MainView()
-        {
-            InitializeComponent();
-
-            DataContext = App.Current.Services.GetService<MainViewModel>();
-        }
+        string[] ShowDialog(string title, string filter);
     }
 }

@@ -15,6 +15,7 @@
 -->
 
 <Window x:Class="ModuleTracker.MainView"
+        x:ClassModifier="internal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -31,6 +32,8 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
+                <MenuItem Header="_Open" Command="{Binding Path=OpenFileCommand}" />
+                <Separator/>
                 <MenuItem Header="E_xit" Command="{Binding Path=ExitCommand}" />
             </MenuItem>
         </Menu>
