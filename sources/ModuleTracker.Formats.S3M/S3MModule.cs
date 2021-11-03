@@ -49,9 +49,14 @@ namespace ModuleTracker.Formats.S3M
 
         public static S3MModule Deserialize(string filename)
         {
-            using (var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, false))
+            using (var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 65536, false))
             {
-                return Deserialize(fileStream);
+                var buffer = new byte[fileStream.Length];
+                fileStream.Read(buffer, 0, buffer.Length);
+                using (var memoryStream = new MemoryStream(buffer))
+                {
+                    return Deserialize(memoryStream);
+                }
             }
         }
 
