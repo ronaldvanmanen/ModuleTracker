@@ -36,6 +36,7 @@ namespace ModuleTracker.Formats.S3M
         [Subtype(nameof(Type), S3MInstrumentType.AdlibTomTom, typeof(S3MAdlibTomTomInstrumentData))]
         [Subtype(nameof(Type), S3MInstrumentType.AdlibTopCymbal, typeof(S3MAdlibTopCymbalInstrumentData))]
         [Subtype(nameof(Type), S3MInstrumentType.AdlibHiHat, typeof(S3MAdlibHiHatInstrumentData))]
+        [SubtypeDefault(typeof(S3MEmptyInstrumentData))]
         public S3MInstrumentData Data { get; set; } = new S3MEmptyInstrumentData();
     }
 }

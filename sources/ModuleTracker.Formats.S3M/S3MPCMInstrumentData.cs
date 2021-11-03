@@ -55,10 +55,10 @@ namespace ModuleTracker.Formats.S3M
 
         [FieldOrder(11)]
         [FieldLength(28)]
-        public string Title { get; set; } = string.Empty;
+        public string SampleName { get; set; } = string.Empty;
 
         [FieldOrder(12)]
         [FieldLength(4)]
-        public string Signature { get; set; } = "SCRI";
+        public string Signature { get; set; } = "SCRS";
     }
 }

@@ -17,8 +17,12 @@ namespace ModuleTracker.Formats.S3M
 {
     public sealed class S3MAdlibInstrument : S3MInstrument
     {
-        public S3MAdlibInstrument(string filename)
+        public string SampleName { get; }
+
+        public S3MAdlibInstrument(string filename, string sampleName)
         : base(filename)
-        { }
+        {
+            SampleName = sampleName;
+        }
     }
 }

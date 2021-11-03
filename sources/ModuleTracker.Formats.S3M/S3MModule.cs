@@ -68,9 +68,17 @@ namespace ModuleTracker.Formats.S3M
                 var instrumentHeader = serializer.Deserialize<S3MInstrumentHeader>(stream);
                 switch (instrumentHeader.Data)
                 {
+                    case S3MEmptyInstrumentData:
+                        {
+                            var instrument = new S3MEmptyInstrument(instrumentHeader.Filename);
+                            instruments.Add(instrument);
+                            break;
+                        }
+
                     case S3MAdlibInstrumentData instrumentData:
                         {
-                            var instrument = new S3MAdlibInstrument(instrumentHeader.Filename);
+                            var instrument = new S3MAdlibInstrument(instrumentHeader.Filename,
+                                instrumentData.SampleName);
                             instruments.Add(instrument);
                             break;
                         }
@@ -90,6 +98,7 @@ namespace ModuleTracker.Formats.S3M
                                 instrumentData.Packing,
                                 instrumentData.Flags,
                                 instrumentData.SampleRate,
+                                instrumentData.SampleName,
                                 sampleData);
                             instruments.Add(instrument);
                             break;

@@ -29,9 +29,11 @@ namespace ModuleTracker.Formats.S3M
 
         public uint SampleRate { get; }
 
+        public string SampleName { get; }
+
         public byte[] SampleData { get; }
 
-        public S3MPCMInstrument(string filename, uint loopStart, uint loopEnd, byte volume, S3MPCMInstrumentPacking packing, S3MPCMInstrumentFlags flags, uint sampleRate, byte[] sampleData)
+        public S3MPCMInstrument(string filename, uint loopStart, uint loopEnd, byte volume, S3MPCMInstrumentPacking packing, S3MPCMInstrumentFlags flags, uint sampleRate, string sampleName, byte[] sampleData)
         : base(filename)
         {
             LoopStart = loopStart;
@@ -40,6 +42,7 @@ namespace ModuleTracker.Formats.S3M
             Packing = packing;
             Flags = flags;
             SampleRate = sampleRate;
+            SampleName = sampleName;
             SampleData = sampleData;
         }
     }

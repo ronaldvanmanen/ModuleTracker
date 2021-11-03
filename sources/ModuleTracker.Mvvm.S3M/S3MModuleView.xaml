@@ -23,6 +23,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <TabControl TabStripPlacement="Bottom">
+            <TabItem Header="Instruments">
+                <ContentControl Content="{Binding Instruments}"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

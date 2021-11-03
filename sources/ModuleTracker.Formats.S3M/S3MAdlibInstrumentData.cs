@@ -76,7 +76,7 @@ namespace ModuleTracker.Formats.S3M
 
         [FieldOrder(18)]
         [FieldLength(28)]
-        public string Title { get; set; } = string.Empty;
+        public string SampleName { get; set; } = string.Empty;
 
         [FieldOrder(19)]
         [FieldLength(4)]

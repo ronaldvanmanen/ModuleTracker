@@ -21,4 +21,20 @@
     <DataTemplate DataType="{x:Type local:S3MModuleViewModel}">
         <local:S3MModuleView />
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:S3MModuleInstrumentViewModel}">
+        <local:S3MModuleInstrumentView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:S3MEmptyInstrumentViewModel}">
+        <local:S3MEmptyInstrumentView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:S3MAdlibInstrumentViewModel}">
+        <local:S3MAdlibInstrumentView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type local:S3MPCMInstrumentViewModel}">
+        <local:S3MPCMInstrumentView />
+    </DataTemplate>
 </ResourceDictionary>
