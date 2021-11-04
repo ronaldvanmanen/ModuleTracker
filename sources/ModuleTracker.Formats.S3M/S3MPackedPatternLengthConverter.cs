@@ -17,11 +17,11 @@ using BinarySerialization;
 
 namespace ModuleTracker.Formats.S3M
 {
-    internal sealed class S3MPackedPatternDataLengthConverter : IValueConverter
+    internal sealed class S3MPackedPatternLengthConverter : IValueConverter
     {
         public object Convert(object value, object parameter, BinarySerializationContext context)
         {
-            if (value is uint length)
+            if (value is ushort length)
             {
                 return length - 2;
             }
@@ -30,7 +30,7 @@ namespace ModuleTracker.Formats.S3M
 
         public object ConvertBack(object value, object parameter, BinarySerializationContext context)
         {
-            if (value is uint length)
+            if (value is ushort length)
             {
                 return length + 2;
             }

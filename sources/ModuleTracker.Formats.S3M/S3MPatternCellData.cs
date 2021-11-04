@@ -20,39 +20,32 @@ namespace ModuleTracker.Formats.S3M
     internal sealed class S3MPatternCellData
     {
         [FieldOrder(0)]
-        [FieldBitLength(1)]
-        public bool CommandAndInfoPresent { get; set; }
+        [SerializeAs(SerializedType.UInt1)]
+        public byte What { get; set; }
 
         [FieldOrder(1)]
-        [FieldBitLength(1)]
-        public bool VolumePresent { get; set; }
-
-        [FieldOrder(2)]
-        [FieldBitLength(1)]
-        public bool NoteAndInstrumentPresent { get; set; }
-
-        [FieldOrder(3)]
-        [FieldBitLength(5)]
-        public ushort ChannelNumber { get; set; }
-
-        [FieldOrder(4)]
-        [SerializeWhen(nameof(NoteAndInstrumentPresent), true)]
+        [SerializeAs(SerializedType.UInt1)]
+        [SerializeWhen(nameof(What), true, ConverterType = typeof(S3MPatternCellDataWhatConverter), ConverterParameter = (byte)0x20u)]
         public byte Note { get; set; }
 
-        [FieldOrder(5)]
-        [SerializeWhen(nameof(NoteAndInstrumentPresent), true)]
+        [FieldOrder(2)]
+        [SerializeAs(SerializedType.UInt1)]
+        [SerializeWhen(nameof(What), true, ConverterType = typeof(S3MPatternCellDataWhatConverter), ConverterParameter = (byte)0x20u)]
         public byte Instrument { get; set; }
 
-        [FieldOrder(6)]
-        [SerializeWhen(nameof(VolumePresent), true)]
+        [FieldOrder(3)]
+        [SerializeAs(SerializedType.UInt1)]
+        [SerializeWhen(nameof(What), true, ConverterType = typeof(S3MPatternCellDataWhatConverter), ConverterParameter = (byte)0x40u)]
         public byte Volume { get; set; }
 
-        [FieldOrder(7)]
-        [SerializeWhen(nameof(CommandAndInfoPresent), true)]
+        [FieldOrder(4)]
+        [SerializeAs(SerializedType.UInt1)]
+        [SerializeWhen(nameof(What), true, ConverterType = typeof(S3MPatternCellDataWhatConverter), ConverterParameter = (byte)0x80u)]
         public byte Command { get; set; }
 
-        [FieldOrder(8)]
-        [SerializeWhen(nameof(CommandAndInfoPresent), true)]
+        [FieldOrder(5)]
+        [SerializeAs(SerializedType.UInt1)]
+        [SerializeWhen(nameof(What), true, ConverterType = typeof(S3MPatternCellDataWhatConverter), ConverterParameter = (byte)0x80u)]
         public byte Info { get; set; }
     }
 }

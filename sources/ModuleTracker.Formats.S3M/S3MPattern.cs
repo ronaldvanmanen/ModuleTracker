@@ -23,6 +23,17 @@ namespace ModuleTracker.Formats.S3M
 
         private readonly S3MPatternCell[,] _cells = new S3MPatternCell[MaxRows, MaxChannels];
 
+        public S3MPattern()
+        {
+            for (var row = 0; row < MaxRows; ++row)
+            {
+                for (var channel = 0; channel < MaxChannels; ++channel)
+                {
+                    _cells[row, channel] = new S3MPatternCell(new S3MPatternCellData());
+                }
+            }
+        }
+
         public S3MPatternCell this[int row, int channel]
         {
             get

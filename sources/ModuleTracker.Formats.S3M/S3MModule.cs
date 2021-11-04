@@ -118,21 +118,21 @@ namespace ModuleTracker.Formats.S3M
                 stream.Seek(patternOffset, SeekOrigin.Begin);
                 var packedPattern = serializer.Deserialize<S3MPackedPattern>(stream);
                 var pattern = new S3MPattern();
-                using (var packedPatternDataStream = new MemoryStream(packedPattern.Data))
+                using (var rowDataStream = new MemoryStream(packedPattern.Data))
                 {
                     for (var row = 0; row < 64; ++row)
                     {
-                        var patternCellData = serializer.Deserialize<S3MPatternCellData>(packedPatternDataStream);
-                        if (!patternCellData.CommandAndInfoPresent &&
-                            !patternCellData.VolumePresent &&
-                            !patternCellData.NoteAndInstrumentPresent &&
-                            patternCellData.ChannelNumber == 0)
+                        while (true)
                         {
-                            continue;
+                            var patternCellData = serializer.Deserialize<S3MPatternCellData>(rowDataStream);
+                            if (patternCellData.What == 0)
+                            {
+                                break;
+                            }
+                            var channel = patternCellData.What & 0x1F;
+                            var cell = new S3MPatternCell(patternCellData);
+                            pattern[row, channel] = cell;
                         }
-                        var channel = patternCellData.ChannelNumber;
-                        var cell = new S3MPatternCell(patternCellData);
-                        pattern[row, channel] = cell;
                     }
                 }
                 patterns.Add(pattern);

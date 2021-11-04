@@ -17,14 +17,18 @@ using BinarySerialization;
 
 namespace ModuleTracker.Formats.S3M
 {
-    internal sealed class S3MPackedPattern
+    internal sealed class S3MPatternCellDataWhatConverter : IValueConverter
     {
-        [FieldOrder(0)]
-        [FieldEndianness(Endianness.Little)]
-        public ushort Length { get; set; }
+        public object Convert(object value, object parameter, BinarySerializationContext context)
+        {
+            byte what = (byte)value;
+            byte flag = (byte)parameter;
+            return (what & flag) == flag;
+        }
 
-        [FieldOrder(1)]
-        [FieldCount(nameof(Length), ConverterType = typeof(S3MPackedPatternLengthConverter))]
-        public byte[] Data { get; set; } = null!;
+        public object ConvertBack(object value, object parameter, BinarySerializationContext context)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
