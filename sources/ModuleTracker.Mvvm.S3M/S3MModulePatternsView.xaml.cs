@@ -13,26 +13,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-namespace ModuleTracker.Formats.S3M
+using System.Windows.Controls;
+
+namespace ModuleTracker.Mvvm.S3M
 {
-    public sealed class S3MPatternCell
+    /// <summary>
+    /// Interaction logic for S3MModulePatternsView.xaml
+    /// </summary>
+    public partial class S3MModulePatternsView : UserControl
     {
-        public bool CommandAndInfoPresent { get; set; } = false;
-
-        public byte Command { get; set; } = 255;
-
-        public byte Info { get; set; } = 0;
-
-        public bool NoteAndInstrumentPresent { get; set; } = false;
-
-        public byte Octave { get; set; } = 0xF;
-
-        public byte Semitone { get; set; } = 0xF;
-
-        public bool VolumePresent { get; set; } = false;
-
-        public byte Volume { get; set; } = 255;
-
-        public byte Instrument { get; set; } = 0;
+        public S3MModulePatternsView()
+        {
+            InitializeComponent();
+        }
     }
 }

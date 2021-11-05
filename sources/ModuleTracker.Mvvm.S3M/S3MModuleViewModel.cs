@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using ModuleTracker.Formats.S3M;
 
@@ -20,16 +21,25 @@ namespace ModuleTracker.Mvvm.S3M
 {
     public sealed class S3MModuleViewModel : ObservableObject
     {
-        public string Title => Module.Title;
+        private readonly S3MModule _module;
 
-        public S3MModuleInstrumentViewModel Instruments { get; }
+        private S3MModulePatternsViewModel _patterns;
 
-        private S3MModule Module { get; }
+        private S3MModuleInstrumentsViewModel _instruments;
+
+        public string Title => _module.Title;
+
+        public S3MModulePatternsViewModel Patterns =>
+            _patterns ??= new S3MModulePatternsViewModel(_module);
+
+        public S3MModuleInstrumentsViewModel Instruments =>
+            _instruments ??= new S3MModuleInstrumentsViewModel(_module);
 
         public S3MModuleViewModel(S3MModule module)
         {
-            Module = module ?? throw new System.ArgumentNullException(nameof(module));
-            Instruments = new S3MModuleInstrumentViewModel(module);
+            _module = module ?? throw new ArgumentNullException(nameof(module));
+            _patterns = null!;
+            _instruments = null!;
         }
     }
 }

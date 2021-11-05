@@ -21,7 +21,7 @@ using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
 {
-    public sealed class S3MModuleInstrumentViewModel : ObservableObject
+    public sealed class S3MModuleInstrumentsViewModel : ObservableObject
     {
         public ObservableCollection<S3MInstrumentViewModel> Instruments { get; }
 
@@ -35,9 +35,9 @@ namespace ModuleTracker.Mvvm.S3M
 
         private S3MModule Module { get; }
 
-        public S3MModuleInstrumentViewModel(S3MModule module)
+        public S3MModuleInstrumentsViewModel(S3MModule module)
         {
-            Module = module ?? throw new System.ArgumentNullException(nameof(module));
+            Module = module ?? throw new ArgumentNullException(nameof(module));
             var instrumentViewModels = Module.Instruments.Select(instrument => CreateViewModel(instrument));
             Instruments = new ObservableCollection<S3MInstrumentViewModel>(instrumentViewModels);
         }

@@ -15,39 +15,31 @@
 
 namespace ModuleTracker.Formats.S3M
 {
-    public sealed class S3MPattern
+    public sealed class S3MPatternRow
     {
-        private const int MaxRows = 64;
+        private const int MaxChannels = 32;
 
-        private readonly S3MPatternRow[] _rows = new S3MPatternRow[MaxRows];
+        private readonly S3MPatternCell[] _cells = new S3MPatternCell[MaxChannels];
 
-        public int RowCount => MaxRows;
+        public int ChannelCount => MaxChannels;
 
-        public S3MPattern()
+        public S3MPatternRow()
         {
-            for (var row = 0; row < MaxRows; ++row)
+            for (var channel = 0; channel < MaxChannels; ++channel)
             {
-                _rows[row] = new S3MPatternRow();
+                _cells[channel] = new S3MPatternCell();
             }
         }
 
-        public S3MPatternRow this[int row]
+        public S3MPatternCell this[int channel]
         {
             get
             {
-                return _rows[row];
-            }
-        }
-
-        public S3MPatternCell this[int row, int channel]
-        {
-            get
-            {
-                return _rows[row][channel];
+                return _cells[channel];
             }
             set
             {
-                _rows[row][channel] = value;
+                _cells[channel] = value;
             }
         }
     }

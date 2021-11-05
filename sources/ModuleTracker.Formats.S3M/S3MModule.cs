@@ -21,11 +21,11 @@ namespace ModuleTracker.Formats.S3M
 {
     public sealed class S3MModule
     {
-        public string Title { get; }
+        public string Title { get; set; }
 
-        public byte InitialSpeed { get; }
+        public byte InitialSpeed { get; set; }
 
-        public byte InitialTempo { get; }
+        public byte InitialTempo { get; set; }
 
         public List<byte> PatternOrderList { get; }
 
@@ -34,17 +34,13 @@ namespace ModuleTracker.Formats.S3M
         public List<S3MPattern> Patterns { get; }
 
         public S3MModule()
-        : this(string.Empty, 0, 0, new List<byte>(), new List<S3MInstrument>(), new List<S3MPattern>())
-        { }
-
-        public S3MModule(string title, byte initialSpeed, byte initialTempo, List<byte> patternOrderList, List<S3MInstrument> instruments, List<S3MPattern> patterns)
         {
-            Title = title;
-            InitialSpeed = initialSpeed;
-            InitialTempo = initialTempo;
-            PatternOrderList = patternOrderList;
-            Instruments = instruments;
-            Patterns = patterns;
+            Title = string.Empty;
+            InitialSpeed = 0;
+            InitialTempo = 0;
+            PatternOrderList = new List<byte>();
+            Instruments = new List<S3MInstrument>();
+            Patterns = new List<S3MPattern>();
         }
 
         public static S3MModule Deserialize(string filename)
@@ -124,21 +120,35 @@ namespace ModuleTracker.Formats.S3M
                     {
                         while (true)
                         {
-                            var patternCellData = serializer.Deserialize<S3MPatternCellData>(rowDataStream);
-                            if (patternCellData.What == 0)
+                            var cellData = serializer.Deserialize<S3MPatternCellData>(rowDataStream);
+                            if (cellData.What == 0)
                             {
                                 break;
                             }
-                            var channel = patternCellData.What & 0x1F;
-                            var cell = new S3MPatternCell(patternCellData);
-                            pattern[row, channel] = cell;
+
+                            var channel = cellData.What & 0x1F;
+                            var cell = pattern[row, channel];
+                            cell.CommandAndInfoPresent = (cellData.What & 0x80u) != 0;
+                            cell.Command = cellData.Command;
+                            cell.Info = cellData.Info;
+                            cell.NoteAndInstrumentPresent = (cellData.What & 0x20u) != 0;
+                            cell.Octave = (byte)(cellData.Note >> 4);
+                            cell.Semitone = (byte)(cellData.Note & 0xF);
+                            cell.Instrument = cellData.Instrument;
                         }
                     }
                 }
                 patterns.Add(pattern);
             }
 
-            return new S3MModule(header.Title, header.InitialSpeed, header.InitialTempo, header.PatternOrderList, instruments, patterns);
+            var module = new S3MModule();
+            module.Title = header.Title;
+            module.InitialSpeed = header.InitialSpeed;
+            module.InitialTempo = header.InitialTempo;
+            module.Instruments.AddRange(instruments);
+            module.Patterns.AddRange(patterns);
+            module.PatternOrderList.AddRange(header.PatternOrderList);
+            return module;
         }
     }
 }

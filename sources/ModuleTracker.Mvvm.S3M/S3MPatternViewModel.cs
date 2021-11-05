@@ -13,18 +13,30 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-using System.Windows.Controls;
+using System;
+using System.Collections.Generic;
+using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
 {
-    /// <summary>
-    /// Interaction logic for S3MModuleInstrumentView.xaml
-    /// </summary>
-    public partial class S3MModuleInstrumentView : UserControl
+    public sealed class S3MPatternViewModel
     {
-        public S3MModuleInstrumentView()
+        private readonly S3MPattern _pattern;
+
+        public IEnumerable<S3MPatternRowViewModel> Rows
         {
-            InitializeComponent();
+            get
+            {
+                for (var row = 0; row < _pattern.RowCount; ++row)
+                {
+                    yield return new S3MPatternRowViewModel(_pattern[row]);
+                }
+            }
+        }
+
+        public S3MPatternViewModel(S3MPattern pattern)
+        {
+            _pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
         }
     }
 }
