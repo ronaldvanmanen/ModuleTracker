@@ -19,35 +19,35 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ModuleTracker.Mvvm.S3M">
 
-    <DataTemplate DataType="{x:Type local:S3MModuleViewModel}">
-        <local:S3MModuleView />
+    <DataTemplate DataType="{x:Type local:ModuleViewModel}">
+        <local:ModuleView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:S3MModuleInstrumentsViewModel}">
-        <local:S3MModuleInstrumentsView />
+    <DataTemplate DataType="{x:Type local:InstrumentListViewModel}">
+        <local:InstrumentListView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:S3MModulePatternsViewModel}">
-        <local:S3MModulePatternsView />
+    <DataTemplate DataType="{x:Type local:PatternListViewModel}">
+        <local:PatternListView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:S3MPatternViewModel}">
-        <local:S3MPatternView />
+    <DataTemplate DataType="{x:Type local:PatternViewModel}">
+        <local:PatternView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:S3MPatternCellViewModel}">
-        <local:S3MPatternCellView />
+    <DataTemplate DataType="{x:Type local:PatternCellViewModel}">
+        <local:PatternCellView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:S3MEmptyInstrumentViewModel}">
-        <local:S3MEmptyInstrumentView />
+    <DataTemplate DataType="{x:Type local:EmptyInstrumentViewModel}">
+        <local:EmptyInstrumentView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:S3MAdlibInstrumentViewModel}">
-        <local:S3MAdlibInstrumentView />
+    <DataTemplate DataType="{x:Type local:AdlibInstrumentViewModel}">
+        <local:AdlibInstrumentView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:S3MPCMInstrumentViewModel}">
-        <local:S3MPCMInstrumentView />
+    <DataTemplate DataType="{x:Type local:SampleInstrumentViewModel}">
+        <local:SampleInstrumentView />
     </DataTemplate>
 </ResourceDictionary>

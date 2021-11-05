@@ -31,14 +31,14 @@ namespace ModuleTracker
 
         public ICommand ExitCommand { get; }
 
-        public ObservableCollection<S3MModuleViewModel> Modules { get; }
+        public ObservableCollection<ModuleViewModel> Modules { get; }
 
         public MainViewModel(IOpenFileService openFileService)
         {
             OpenFileService = openFileService ?? throw new System.ArgumentNullException(nameof(openFileService));
             OpenFileCommand = new RelayCommand(ExecuteOpenFile);
             ExitCommand = new RelayCommand(ExecuteExit);
-            Modules = new ObservableCollection<S3MModuleViewModel>();
+            Modules = new ObservableCollection<ModuleViewModel>();
         }
 
         private void ExecuteOpenFile()
@@ -46,8 +46,8 @@ namespace ModuleTracker
             var moduleFileNames = OpenFileService.ShowDialog("Open Module...", "Scream Tracker 3|*.s3m");
             foreach (var moduleFileName in moduleFileNames)
             {
-                var module = S3MModule.Deserialize(moduleFileName);
-                var viewModel = new S3MModuleViewModel(module);
+                var module = Module.Deserialize(moduleFileName);
+                var viewModel = new ModuleViewModel(module);
                 Modules.Add(viewModel);
             }
         }
