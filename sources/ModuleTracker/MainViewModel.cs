@@ -20,6 +20,7 @@ using System.Windows.Input;
 using ModuleTracker.Formats.S3M;
 using ModuleTracker.Mvvm.S3M;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace ModuleTracker
 {
@@ -36,20 +37,23 @@ namespace ModuleTracker
         public MainViewModel(IOpenFileService openFileService)
         {
             OpenFileService = openFileService ?? throw new System.ArgumentNullException(nameof(openFileService));
-            OpenFileCommand = new RelayCommand(ExecuteOpenFile);
+            OpenFileCommand = new AsyncRelayCommand(ExecuteOpenFile);
             ExitCommand = new RelayCommand(ExecuteExit);
             Modules = new ObservableCollection<ModuleViewModel>();
         }
 
-        private void ExecuteOpenFile()
+        private async Task ExecuteOpenFile()
         {
             var moduleFileNames = OpenFileService.ShowDialog("Open Module...", "Scream Tracker 3|*.s3m");
-            foreach (var moduleFileName in moduleFileNames)
+            await Task.Run(() =>
             {
-                var module = Module.Deserialize(moduleFileName);
-                var viewModel = new ModuleViewModel(module);
-                Modules.Add(viewModel);
-            }
+                foreach (var moduleFileName in moduleFileNames)
+                {
+                    var module = Module.Deserialize(moduleFileName);
+                    var viewModel = new ModuleViewModel(module);
+                    Application.Current.Dispatcher.Invoke(() => Modules.Add(viewModel));
+                }
+            });
         }
 
         private void ExecuteExit()
