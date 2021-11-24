@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BinarySerializer" Version="8.6.1.1" />
+    <PackageReference Include="BinarySerializer" Version="8.6.1.2" />
+    <PackageReference Include="Brutal.Dev.StrongNameSigner" Version="2.9.1" />
   </ItemGroup>
 
 </Project>
