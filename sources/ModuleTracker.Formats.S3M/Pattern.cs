@@ -13,19 +13,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
+using System.Collections;
+using System.Collections.Generic;
+
 namespace ModuleTracker.Formats.S3M
 {
-    public sealed class Pattern
+    public sealed class Pattern : IReadOnlyList<PatternRow>
     {
         private const int MaxRows = 64;
 
         private readonly PatternRow[] _rows = new PatternRow[MaxRows];
 
-        public int RowCount => MaxRows;
+        public int Count => _rows.Length;
 
         public Pattern()
         {
-            for (var row = 0; row < MaxRows; ++row)
+            for (var row = 0; row < _rows.Length; ++row)
             {
                 _rows[row] = new PatternRow();
             }
@@ -49,6 +52,16 @@ namespace ModuleTracker.Formats.S3M
             {
                 _rows[row][channel] = value;
             }
+        }
+
+        public IEnumerator<PatternRow> GetEnumerator()
+        {
+            return ((IEnumerable<PatternRow>)_rows).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _rows.GetEnumerator();
         }
     }
 }
