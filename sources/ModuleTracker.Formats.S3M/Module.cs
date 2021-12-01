@@ -51,15 +51,11 @@ namespace ModuleTracker.Formats.S3M
 
         public static Module Deserialize(string filename)
         {
-            using (var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 65536, false))
-            {
-                var buffer = new byte[fileStream.Length];
-                fileStream.Read(buffer, 0, buffer.Length);
-                using (var memoryStream = new MemoryStream(buffer))
-                {
-                    return Deserialize(memoryStream);
-                }
-            }
+            using var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 65536, false);
+            var buffer = new byte[fileStream.Length];
+            fileStream.Read(buffer, 0, buffer.Length);
+            using var memoryStream = new MemoryStream(buffer);
+            return Deserialize(memoryStream);
         }
 
         public static Module Deserialize(Stream stream)
