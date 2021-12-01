@@ -20,16 +20,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ModuleTracker.Mvvm.S3M"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" 
-             d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance Type=local:PatternCellViewModel}">
-    <StackPanel Orientation="Horizontal">
-        <Label Content="{Binding Path=Semitone}" FontFamily="Consolas"/>
-        <Label Content="{Binding Path=Octave}" FontFamily="Consolas"/>
-        <Label Content="{Binding Path=Instrument}" FontFamily="Consolas"/>
-        <Label Content="{Binding Path=Volume}" FontFamily="Consolas"/>
-        <Label Content="{Binding Path=Command}" FontFamily="Consolas"/>
-        <Label Content="{Binding Path=Info}" FontFamily="Consolas"/>
+             mc:Ignorable="d"
+             d:DesignHeight="16"
+             d:DesignWidth="86"
+             d:DataContext="{d:DesignInstance Type=local:PatternCellViewModel, IsDesignTimeCreatable=True}">
+    <StackPanel Orientation="Horizontal" TextBlock.FontFamily="Consolas" VerticalAlignment="Center">
+        <TextBlock Text="{Binding Path=Note, Mode=OneWay}" Foreground="Blue"/>
+        <TextBlock Text=" " />
+        <TextBlock Text="{Binding Path=Instrument, Mode=OneWay}" Foreground="Green" />
+        <TextBlock Text=" " />
+        <TextBlock Text="{Binding Path=Volume, Mode=OneWay}" Foreground="Green" />
+        <TextBlock Text=" " />
+        <TextBlock Text="{Binding Path=Command, Mode=OneWay}" Foreground="Red" />
+        <TextBlock Text="{Binding Path=Info, Mode=OneWay}" Foreground="Red" />
     </StackPanel>
 </UserControl>

@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
@@ -23,20 +24,19 @@ namespace ModuleTracker.Mvvm.S3M
     {
         private readonly Pattern _pattern;
 
-        public IEnumerable<PatternRowViewModel> Rows
-        {
-            get
-            {
-                for (var row = 0; row < _pattern.RowCount; ++row)
-                {
-                    yield return new PatternRowViewModel(_pattern[row]);
-                }
-            }
-        }
+        private readonly List<PatternRowViewModel> _rows;
+
+        public IList<PatternRowViewModel> Rows => _rows;
+
+        public PatternViewModel()
+        : this(new Pattern())
+        { }
 
         public PatternViewModel(Pattern pattern)
         {
             _pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
+            var rows = _pattern.Select((row, index) => new PatternRowViewModel(row, index));
+            _rows = new List<PatternRowViewModel>(rows);
         }
     }
 }

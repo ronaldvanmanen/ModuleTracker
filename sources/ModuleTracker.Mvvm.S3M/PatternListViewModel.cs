@@ -18,29 +18,23 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using ModuleTracker.Formats.S3M;
+using System.Linq;
 
 namespace ModuleTracker.Mvvm.S3M
 {
     public sealed class PatternListViewModel : ObservableObject
     {
-        private readonly Dictionary<int, PatternViewModel> _patterns = new Dictionary<int, PatternViewModel>();
-
         private int _currentPatternIndex;
 
         private Module Module { get; }
+
+        private List<PatternViewModel> Patterns { get; set; }
 
         public PatternViewModel CurrentPattern
         {
             get
             {
-                if (_patterns.TryGetValue(_currentPatternIndex, out var selectedPattern))
-                {
-                    return selectedPattern;
-                }
-
-                selectedPattern = new PatternViewModel(Module.Patterns[_currentPatternIndex]);
-                _patterns.Add(_currentPatternIndex, selectedPattern);
-                return selectedPattern;
+                return Patterns[CurrentPatternIndex];
             }
         }
 
@@ -70,10 +64,11 @@ namespace ModuleTracker.Mvvm.S3M
 
         public IRelayCommand GotoLastPatternCommand { get; }
 
-
         public PatternListViewModel(Module module)
         {
             Module = module ?? throw new ArgumentNullException(nameof(module));
+            var patterns = Module.Patterns.Select(pattern => new PatternViewModel(pattern));
+            Patterns = new List<PatternViewModel>(patterns);
             GotoFirstPatternCommand = new RelayCommand(GotoFirstPattern, CanGotoFirstPattern);
             GotoPreviousPatternCommand = new RelayCommand(GotoPreviousPattern, CanGotoPreviousPattern);
             GotoNextPatternCommand = new RelayCommand(GotoNextPattern, CanGotoNextPattern);

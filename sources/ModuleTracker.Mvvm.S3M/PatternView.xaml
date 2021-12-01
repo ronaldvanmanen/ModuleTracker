@@ -23,241 +23,263 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance Type=local:PatternViewModel}">
-    <Grid>
-        <DataGrid ItemsSource="{Binding Rows}" 
-                  AutoGenerateColumns="False"
-                  EnableRowVirtualization="False"
-                  EnableColumnVirtualization="False"
-                  VirtualizingStackPanel.IsVirtualizing="False"
-                  VirtualizingStackPanel.VirtualizationMode="Standard"
-                  ScrollViewer.CanContentScroll="False">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Channel 0">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel0, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 1">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel1, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 2">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel2, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 3">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel3, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 4">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel4, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 5">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel5, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 6">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel6, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 7">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel7, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 8">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel8, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 9">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel9, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 10">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel10, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 11">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel11, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 12">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel12, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 13">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel13, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 14">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel14, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 15">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel15, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 16">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel16, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 17">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel17, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 18">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel18, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 19">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel19, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 20">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel20, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 21">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel21, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 22">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel22, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 23">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel23, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 24">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel24, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 25">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel25, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 26">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel26, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 27">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel27, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 28">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel28, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 29">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel29, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 30">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel30, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Channel 31">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <local:PatternCellView DataContext="{Binding Path=Channel31, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+             d:DataContext="{d:DesignInstance Type=local:PatternViewModel, IsDesignTimeCreatable=True}">
+
+    <DataGrid ItemsSource="{Binding Rows, IsAsync=True}"
+              AlternationCount="4"
+              AlternatingRowBackground="#FFF4F4F4"
+              AutoGenerateColumns="False"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              CanUserReorderColumns="False"
+              CanUserResizeColumns="False"
+              CanUserResizeRows="False"
+              EnableRowVirtualization="True"
+              EnableColumnVirtualization="True"
+              GridLinesVisibility="Vertical"
+              VerticalGridLinesBrush="#FFC0C0C0"
+              ColumnWidth="90"
+              MinColumnWidth="90"
+              MaxColumnWidth="90"
+              RowHeaderWidth="25"
+              RowHeight="25"
+              MinRowHeight="25"
+              MaxHeight="1600"
+              MaxWidth="2880"
+              ScrollViewer.CanContentScroll="True"
+              TextBlock.FontFamily="Consolas"
+              VirtualizingStackPanel.IsVirtualizing="True"
+              VirtualizingStackPanel.VirtualizationMode="Recycling">
+        <DataGrid.RowHeaderStyle>
+            <Style TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Content" Value="{Binding Index}"/>
+            </Style>
+        </DataGrid.RowHeaderStyle>
+        <DataGrid.Columns>
+            <DataGridTemplateColumn Header="Channel 1">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[0], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 2">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[1], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 3">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[2], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 4">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[3], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 5">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[4], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 6">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[5], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 7">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[6], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 8">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[7], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 9">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[8], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 10">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[9], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 11">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[10], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 12">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[11], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 13">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[12], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 14">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[13], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 15">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[14], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 16">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[15], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 17">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[16], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 18">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[17], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 19">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[18], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 20">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[19], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 21">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[20], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 22">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[21], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 23">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[22], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 24">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[23], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 25">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[24], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 26">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[25], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 27">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[26], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 28">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[27], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 29">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[28], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 30">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[29], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 31">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[30], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Channel 32">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <local:PatternCellView DataContext="{Binding Path=Channels[31], Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
 </UserControl>

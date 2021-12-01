@@ -24,20 +24,15 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=local:PatternListViewModel}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <local:PatternView Grid.Row="0" Margin="5,5,5,5" DataContext="{Binding CurrentPattern}"/>
-
-        <UniformGrid Grid.Row="1" Margin="5,0,5,5" Rows="1">
+    <DockPanel>
+        <UniformGrid DockPanel.Dock="Bottom" Margin="5,0,5,5" Rows="1">
             <Button Content="First Pattern" Command="{Binding GotoFirstPatternCommand}" />
             <Button Content="Previous Pattern" Command="{Binding GotoPreviousPatternCommand}"/>
-            <TextBox Text="{Binding CurrentPatternIndex}"/>
-            <Button Content="Next Pattern"  Command="{Binding GotoNextPatternCommand}"/>
-            <Button Content="Last Pattern"  Command="{Binding GotoLastPatternCommand}"/>
+            <TextBox Text="{Binding CurrentPatternIndex}" />
+            <Button Content="Next Pattern" Command="{Binding GotoNextPatternCommand}"/>
+            <Button Content="Last Pattern" Command="{Binding GotoLastPatternCommand}"/>
         </UniformGrid>
-    </Grid>
+
+        <local:PatternView Margin="5,5,5,5" DataContext="{Binding CurrentPattern}"/>
+    </DockPanel>
 </UserControl>
