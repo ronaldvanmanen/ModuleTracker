@@ -142,7 +142,7 @@ namespace ModuleTracker.Formats.S3M
             }
 
             var module = new Module();
-            module.Title = header.Title;
+            module.Title = header.Title.Trim('\0');
             module.InitialSpeed = header.InitialSpeed;
             module.InitialTempo = header.InitialTempo;
             module.Instruments.AddRange(instruments);
