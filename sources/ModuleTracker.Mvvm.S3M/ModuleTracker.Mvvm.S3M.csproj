@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ModuleTracker.Formats.S3M\ModuleTracker.Formats.S3M.csproj" />
+    <ProjectReference Include="..\ModuleTracker.Mvvm\ModuleTracker.Mvvm.csproj" />
   </ItemGroup>
 
 </Project>

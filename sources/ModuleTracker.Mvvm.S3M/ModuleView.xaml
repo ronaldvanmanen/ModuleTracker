@@ -24,14 +24,12 @@
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=local:ModuleViewModel}">
-    <Grid>
-        <TabControl TabStripPlacement="Bottom">
-            <TabItem Header="Patterns">
-                <ContentControl Content="{Binding Patterns}"/>
-            </TabItem>
-            <TabItem Header="Instruments">
-                <ContentControl Content="{Binding Instruments}"/>
-            </TabItem>
-        </TabControl>
-    </Grid>
+    <TabControl TabStripPlacement="Bottom">
+        <TabItem Header="Patterns">
+            <ContentControl Content="{Binding Patterns}"/>
+        </TabItem>
+        <TabItem Header="Instruments">
+            <ContentControl Content="{Binding Instruments}"/>
+        </TabItem>
+    </TabControl>
 </UserControl>

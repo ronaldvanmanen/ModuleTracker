@@ -20,34 +20,60 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ModuleTracker"
+        xmlns:mt="clr-namespace:ModuleTracker"
+        xmlns:mtm="clr-namespace:ModuleTracker.Mvvm;assembly=ModuleTracker.Mvvm"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
-        Title="Module Tracker" Height="600" Width="800">
+        d:DataContext="{d:DesignInstance Type=mt:MainViewModel}"
+        Height="600"
+        Width="800"
+        Title="Module Tracker">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
+    <Window.Resources>
+        <mtm:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
+        <mtm:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open" Command="{Binding Path=OpenFileCommand}" />
                 <Separator/>
                 <MenuItem Header="E_xit" Command="{Binding Path=ExitCommand}" />
             </MenuItem>
         </Menu>
-        <TabControl Grid.Row="1" ItemsSource="{Binding Modules}">
-            <TabControl.ItemTemplate>
-                <HierarchicalDataTemplate>
-                    <Label Content="{Binding Path=Title}"/>
-                </HierarchicalDataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <ContentControl Content="{Binding}"/>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>
-    </Grid>
+        <DockingManager ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
+                        AnchorablesSource="{Binding Tools}"
+                        DocumentsSource="{Binding Documents}">
+            <DockingManager.LayoutItemContainerStyleSelector>
+                <mtm:PanesStyleSelector>
+                    <mtm:PanesStyleSelector.DocumentStyle>
+                        <Style TargetType="{x:Type LayoutItem}">
+                            <!--<Setter Property="CloseCommand" Value="{Binding CloseDocumentCommand}"/>-->
+                            <Setter Property="ContentId" Value="{Binding Model.PaneContentId}"/>
+                            <Setter Property="Title" Value="{Binding Model.PaneTitle}"/>
+                            <Setter Property="IsActive" Value="{Binding Model.IsPaneActive, Mode=TwoWay}"/>
+                            <Setter Property="IsSelected" Value="{Binding Model.IsPaneSelected, Mode=TwoWay}"/>
+                        </Style>
+                    </mtm:PanesStyleSelector.DocumentStyle>
+                    <mtm:PanesStyleSelector.ToolboxStyle>
+                        <Style TargetType="{x:Type LayoutAnchorableItem}">
+                            <Setter Property="ContentId" Value="{Binding Model.PaneContentId}"/>
+                            <Setter Property="Title" Value="{Binding Model.PaneTitle}"/>
+                            <Setter Property="IsActive" Value="{Binding Model.IsPaneActive, Mode=TwoWay}"/>
+                            <Setter Property="IsSelected" Value="{Binding Model.IsPaneSelected, Mode=TwoWay}"/>
+                            <Setter Property="Visibility" Value="{Binding Model.IsPaneVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        </Style>
+                    </mtm:PanesStyleSelector.ToolboxStyle>
+                </mtm:PanesStyleSelector>
+            </DockingManager.LayoutItemContainerStyleSelector>
+            <LayoutRoot>
+                <LayoutPanel Orientation="Horizontal">
+                    <LayoutPanel>
+                        <LayoutAnchorablePane DockWidth="256"/>
+                        <LayoutDocumentPane DockWidth="*"/>
+                    </LayoutPanel>
+                </LayoutPanel>
+            </LayoutRoot>
+        </DockingManager>
+    </DockPanel>
 </Window>

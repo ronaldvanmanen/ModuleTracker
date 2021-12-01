@@ -13,33 +13,60 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using System.Windows;
-using System.Windows.Input;
-using ModuleTracker.Formats.S3M;
-using ModuleTracker.Mvvm.S3M;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
+using ModuleTracker.Formats.S3M;
+using ModuleTracker.Mvvm;
+using ModuleTracker.Mvvm.S3M;
 
 namespace ModuleTracker
 {
-    internal sealed class MainViewModel : ObservableObject
+    internal sealed class MainViewModel : ObservableRecipient
     {
+        private DocumentViewModel _activeDocument = null!;
+
+        public DocumentViewModel ActiveDocument
+        {
+            get => _activeDocument;
+
+            set
+            {
+                if (SetProperty(ref _activeDocument, value))
+                {
+                    Messenger.Send(new ActiveObjectChangedMessage(_activeDocument));
+                }
+            }
+        }
+
+        public ObservableCollection<DocumentViewModel> Documents { get; }
+
+        public ObservableCollection<ToolboxViewModel> Tools { get; }
+
         private IOpenFileService OpenFileService { get; }
 
         public ICommand OpenFileCommand { get; }
 
         public ICommand ExitCommand { get; }
 
-        public ObservableCollection<ModuleViewModel> Modules { get; }
-
         public MainViewModel(IOpenFileService openFileService)
         {
-            OpenFileService = openFileService ?? throw new System.ArgumentNullException(nameof(openFileService));
+            OpenFileService = openFileService ?? throw new ArgumentNullException(nameof(openFileService));
             OpenFileCommand = new AsyncRelayCommand(ExecuteOpenFile);
             ExitCommand = new RelayCommand(ExecuteExit);
-            Modules = new ObservableCollection<ModuleViewModel>();
+            Documents = new ObservableCollection<DocumentViewModel>();
+            Tools = new ObservableCollection<ToolboxViewModel>
+            {
+                new PropertiesViewModel
+                {
+                    IsPaneVisible = true
+                }
+            };
         }
 
         private async Task ExecuteOpenFile()
@@ -50,8 +77,8 @@ namespace ModuleTracker
                 foreach (var moduleFileName in moduleFileNames)
                 {
                     var module = Module.Deserialize(moduleFileName);
-                    var viewModel = new ModuleViewModel(module);
-                    Application.Current.Dispatcher.Invoke(() => Modules.Add(viewModel));
+                    var moduleViewModel = new ModuleViewModel(module);
+                    Application.Current.Dispatcher.Invoke(() => Documents.Add(moduleViewModel));
                 }
             });
         }
