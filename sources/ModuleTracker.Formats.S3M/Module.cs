@@ -23,9 +23,13 @@ namespace ModuleTracker.Formats.S3M
     {
         public string Title { get; set; }
 
+        public byte GlobalVolume { get; set; }
+
         public byte InitialSpeed { get; set; }
 
         public byte InitialTempo { get; set; }
+
+        public byte MasterVolume { get; set; }
 
         public List<byte> PatternOrderList { get; }
 
@@ -36,8 +40,10 @@ namespace ModuleTracker.Formats.S3M
         public Module()
         {
             Title = string.Empty;
+            GlobalVolume = 0;
             InitialSpeed = 0;
             InitialTempo = 0;
+            MasterVolume = 0;
             PatternOrderList = new List<byte>();
             Instruments = new List<Instrument>();
             Patterns = new List<Pattern>();
@@ -143,8 +149,10 @@ namespace ModuleTracker.Formats.S3M
 
             var module = new Module();
             module.Title = header.Title.Trim('\0');
+            module.GlobalVolume = header.GlobalVolume;
             module.InitialSpeed = header.InitialSpeed;
             module.InitialTempo = header.InitialTempo;
+            module.MasterVolume = header.MasterVolume;
             module.Instruments.AddRange(instruments);
             module.Patterns.AddRange(patterns);
             module.PatternOrderList.AddRange(header.PatternOrderList);
