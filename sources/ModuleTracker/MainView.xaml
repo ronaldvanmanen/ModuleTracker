@@ -30,7 +30,7 @@
 
     <Window.Resources>
         <mtm:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
-        <mtm:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <mtm:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
 
     <DockPanel>
@@ -64,7 +64,7 @@
                             <Setter Property="Title" Value="{Binding Model.PaneTitle}"/>
                             <Setter Property="IsActive" Value="{Binding Model.IsPaneActive, Mode=TwoWay}"/>
                             <Setter Property="IsSelected" Value="{Binding Model.IsPaneSelected, Mode=TwoWay}"/>
-                            <Setter Property="Visibility" Value="{Binding Model.IsPaneVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                            <Setter Property="Visibility" Value="{Binding Model.IsPaneVisible, Mode=TwoWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                         </Style>
                     </mtm:PanesStyleSelector.ToolboxStyle>
                 </mtm:PanesStyleSelector>

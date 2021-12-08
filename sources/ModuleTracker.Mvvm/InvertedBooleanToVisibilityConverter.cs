@@ -21,28 +21,20 @@ using System.Windows.Data;
 namespace ModuleTracker.Mvvm
 {
     [ValueConversion(typeof(bool), typeof(Visibility))]
-    public sealed class BoolToVisibilityConverter : IValueConverter
+    public sealed class InvertedBooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var isInverted = parameter != null && (bool)parameter;
             var isVisible = value != null && (bool)value;
-            if (isVisible)
-            {
-                return isInverted ? Visibility.Hidden : Visibility.Visible;
-            }
-            else
-            {
-                return isInverted ? Visibility.Visible : Visibility.Hidden;
-            }
+            var visibility = isVisible ? Visibility.Collapsed : Visibility.Visible;
+            return visibility;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var visibility = value == null ? Visibility.Hidden : (Visibility)value;
-            var isInverted = parameter != null && (bool)parameter;
-            var isVisible = visibility == Visibility.Visible;
-            return isVisible != isInverted;
+            var visibility = value == null ? Visibility.Collapsed : (Visibility)value;
+            var isVisible = visibility == Visibility.Collapsed;
+            return isVisible;
         }
     }
 }
