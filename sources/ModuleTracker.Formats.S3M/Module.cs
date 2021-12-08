@@ -29,6 +29,8 @@ namespace ModuleTracker.Formats.S3M
 
         public byte InitialTempo { get; set; }
 
+        public bool Stereo { get; set; }
+
         public byte MasterVolume { get; set; }
 
         public List<byte> PatternOrderList { get; }
@@ -43,6 +45,7 @@ namespace ModuleTracker.Formats.S3M
             GlobalVolume = 0;
             InitialSpeed = 0;
             InitialTempo = 0;
+            Stereo = false;
             MasterVolume = 0;
             PatternOrderList = new List<byte>();
             Instruments = new List<Instrument>();
@@ -148,7 +151,8 @@ namespace ModuleTracker.Formats.S3M
             module.GlobalVolume = header.GlobalVolume;
             module.InitialSpeed = header.InitialSpeed;
             module.InitialTempo = header.InitialTempo;
-            module.MasterVolume = header.MasterVolume;
+            module.Stereo = (header.MasterVolume & 0x80) != 0;
+            module.MasterVolume = (byte)(header.MasterVolume & 0x7F);
             module.Instruments.AddRange(instruments);
             module.Patterns.AddRange(patterns);
             module.PatternOrderList.AddRange(header.PatternOrderList);
