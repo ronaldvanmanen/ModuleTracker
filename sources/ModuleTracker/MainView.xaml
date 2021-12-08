@@ -41,9 +41,12 @@
                 <MenuItem Header="E_xit" Command="{Binding Path=ExitCommand}" />
             </MenuItem>
         </Menu>
+
         <DockingManager ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
                         AnchorablesSource="{Binding Tools}"
-                        DocumentsSource="{Binding Documents}">
+                        DocumentsSource="{Binding Documents}"
+                        BorderBrush="{x:Null}"
+                        BorderThickness="5">
             <DockingManager.LayoutItemContainerStyleSelector>
                 <mtm:PanesStyleSelector>
                     <mtm:PanesStyleSelector.DocumentStyle>
