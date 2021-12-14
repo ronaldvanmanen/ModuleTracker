@@ -77,9 +77,16 @@ namespace ModuleTracker
             {
                 foreach (var moduleFileName in moduleFileNames)
                 {
-                    var module = Module.Deserialize(moduleFileName);
-                    var moduleViewModel = new ModuleViewModel(module);
-                    Application.Current.Dispatcher.Invoke(() => Documents.Add(moduleViewModel));
+                    try
+                    {
+                        var module = Module.Deserialize(moduleFileName);
+                        var moduleViewModel = new ModuleViewModel(module);
+                        Application.Current.Dispatcher.Invoke(() => Documents.Add(moduleViewModel));
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, $"Error reading file {moduleFileName}", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             });
         }
