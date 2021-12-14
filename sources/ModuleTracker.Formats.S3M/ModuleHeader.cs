@@ -23,16 +23,19 @@ namespace ModuleTracker.Formats.S3M
         [FieldOrder(0)]
         [FieldLength(28)]
         [FieldEncoding("ASCII")]
+        [SerializeAs(SerializedType = SerializedType.TerminatedString, StringTerminator = '\0', PaddingValue = 0)]
         public string Title { get; set; } = string.Empty;
 
         [FieldOrder(1)]
+        [FieldEndianness(Endianness.Little)]
         public byte SignatureByte { get; set; } = 0x1A;
 
         [FieldOrder(2)]
+        [FieldEndianness(Endianness.Little)]
         public ModuleType Type { get; set; }
 
         [FieldOrder(3)]
-        [FieldCount(2)]
+        [FieldEndianness(Endianness.Little)]
         public ushort Reserved0 { get; set; }
 
         [FieldOrder(4)]
@@ -62,44 +65,74 @@ namespace ModuleTracker.Formats.S3M
         [FieldOrder(10)]
         [FieldLength(4)]
         [FieldEncoding("ASCII")]
+        [SerializeAs(SerializedType = SerializedType.SizedString)]
         public string Signature { get; set; } = "SCRM";
 
         [FieldOrder(11)]
+        [FieldEndianness(Endianness.Little)]
         public byte GlobalVolume { get; set; }
 
         [FieldOrder(12)]
+        [FieldEndianness(Endianness.Little)]
         public byte InitialSpeed { get; set; }
 
         [FieldOrder(13)]
+        [FieldEndianness(Endianness.Little)]
         public byte InitialTempo { get; set; }
 
         [FieldOrder(14)]
+        [FieldEndianness(Endianness.Little)]
+        [FieldBitLength(7)]
         public byte MasterVolume { get; set; }
 
         [FieldOrder(15)]
-        [FieldCount(10)]
-        public byte[] Reserved2 { get; set; } = new byte[10];
+        [FieldEndianness(Endianness.Little)]
+        [FieldBitLength(1)]
+        public bool Stereo { get; set; }
 
         [FieldOrder(16)]
         [FieldEndianness(Endianness.Little)]
-        public ushort SpecialCustomDataPointer { get; set; }
+        public byte UltraClickRemoval { get; set; }
 
         [FieldOrder(17)]
-        [FieldCount(32)]
-        public byte[] ChannelSettings { get; set; } = new byte[32];
+        [FieldEndianness(Endianness.Little)]
+        public byte UseDefaultPan { get; set; }
 
         [FieldOrder(18)]
-        [FieldCount(nameof(OrderCount))]
-        public List<byte> PatternOrderList { get; set; } = new List<byte>();
+        [FieldCount(8)]
+        [FieldEndianness(Endianness.Little)]
+        public byte[] Reserved2 { get; set; } = new byte[8];
 
         [FieldOrder(19)]
+        [FieldEndianness(Endianness.Little)]
+        public ushort SpecialCustomDataPointer { get; set; }
+
+        [FieldOrder(20)]
+        [FieldCount(32)]
+        [FieldEndianness(Endianness.Little)]
+        public byte[] ChannelSettings { get; set; } = new byte[32];
+
+        [FieldOrder(21)]
+        [FieldCount(nameof(OrderCount))]
+        [FieldEndianness(Endianness.Little)]
+        public List<byte> PatternOrderList { get; set; } = new List<byte>();
+
+        [FieldOrder(22)]
         [FieldCount(nameof(InstrumentCount))]
         [FieldEndianness(Endianness.Little)]
         public List<ushort> InstrumentPointerList { get; set; } = new List<ushort>();
 
-        [FieldOrder(20)]
+        [FieldOrder(23)]
         [FieldCount(nameof(PatternCount))]
         [FieldEndianness(Endianness.Little)]
         public List<ushort> PatternPointerList { get; set; } = new List<ushort>();
+
+        private const byte HasChannelPanSettings = 252;
+
+        [FieldOrder(24)]
+        [FieldCount(32)]
+        [ItemLength(1)]
+        [SerializeWhen(nameof(UseDefaultPan), HasChannelPanSettings)]
+        public ChannelPanSettingData[] ChannelPanSettings { get; set; } = new ChannelPanSettingData[32];
     }
 }
