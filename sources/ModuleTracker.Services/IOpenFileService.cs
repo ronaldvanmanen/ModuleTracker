@@ -13,9 +13,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-namespace ModuleTracker
+namespace ModuleTracker.Services
 {
-    internal interface IOpenFileService
+    public interface IOpenFileService
     {
         string[] ShowDialog(string title, string filter);
     }

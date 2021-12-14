@@ -24,6 +24,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using ModuleTracker.Formats.S3M;
 using ModuleTracker.Mvvm;
 using ModuleTracker.Mvvm.S3M;
+using ModuleTracker.Services;
 
 namespace ModuleTracker
 {

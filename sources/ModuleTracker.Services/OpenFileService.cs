@@ -16,9 +16,9 @@
 using System;
 using Microsoft.Win32;
 
-namespace ModuleTracker
+namespace ModuleTracker.Services
 {
-    internal sealed class OpenFileService : IOpenFileService
+    public sealed class OpenFileService : IOpenFileService
     {
         public string[] ShowDialog(string title, string filter)
         {

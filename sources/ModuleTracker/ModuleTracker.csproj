@@ -18,6 +18,7 @@
     <ProjectReference Include="..\ModuleTracker.Formats.S3M\ModuleTracker.Formats.S3M.csproj" />
     <ProjectReference Include="..\ModuleTracker.Mvvm.S3M\ModuleTracker.Mvvm.S3M.csproj" />
     <ProjectReference Include="..\ModuleTracker.Mvvm\ModuleTracker.Mvvm.csproj" />
+    <ProjectReference Include="..\ModuleTracker.Services\ModuleTracker.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

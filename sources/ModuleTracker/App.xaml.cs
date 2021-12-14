@@ -14,6 +14,7 @@
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
 using Microsoft.Extensions.DependencyInjection;
+using ModuleTracker.Services;
 using System;
 using System.Windows;
 
