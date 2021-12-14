@@ -13,8 +13,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using BinarySerialization;
 
 namespace ModuleTracker.Formats.S3M
@@ -33,11 +35,13 @@ namespace ModuleTracker.Formats.S3M
 
         public byte MasterVolume { get; set; }
 
-        public List<byte> PatternOrderList { get; }
+        public IReadOnlyList<ChannelSetting> ChannelSettings { get; }
 
-        public List<Instrument> Instruments { get; }
+        public IList<byte> PatternOrderList { get; }
 
-        public List<Pattern> Patterns { get; }
+        public IList<Instrument> Instruments { get; }
+
+        public IList<Pattern> Patterns { get; }
 
         public Module()
         {
@@ -47,6 +51,7 @@ namespace ModuleTracker.Formats.S3M
             InitialTempo = 0;
             Stereo = false;
             MasterVolume = 0;
+            ChannelSettings = Enumerable.Range(0, 32).Select(_ => new ChannelSetting()).ToArray();
             PatternOrderList = new List<byte>();
             Instruments = new List<Instrument>();
             Patterns = new List<Pattern>();
@@ -63,61 +68,72 @@ namespace ModuleTracker.Formats.S3M
 
         public static Module Deserialize(Stream stream)
         {
-            var serializer = new BinarySerializer();
-            var header = serializer.Deserialize<ModuleHeader>(stream);
-            var instruments = new List<Instrument>(header.InstrumentPointerList.Count);
+            if (stream is null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
 
-            foreach (var instrumentPointer in header.InstrumentPointerList)
+            var moduleSerializer = new BinarySerializer();
+            var moduleHeader = moduleSerializer.Deserialize<ModuleHeader>(stream);
+            var module = new Module
+            {
+                Title = moduleHeader.Title,
+                GlobalVolume = moduleHeader.GlobalVolume,
+                InitialSpeed = moduleHeader.InitialSpeed,
+                InitialTempo = moduleHeader.InitialTempo,
+                Stereo = moduleHeader.Stereo,
+                MasterVolume = moduleHeader.MasterVolume
+            };
+
+            foreach (var instrumentPointer in moduleHeader.InstrumentPointerList)
             {
                 var instrumentOffset = instrumentPointer << 4;
                 stream.Seek(instrumentOffset, SeekOrigin.Begin);
-                var instrumentHeader = serializer.Deserialize<InstrumentHeader>(stream);
+                var instrumentHeader = moduleSerializer.Deserialize<InstrumentHeader>(stream);
                 switch (instrumentHeader.Data)
                 {
                     case EmptyInstrumentData:
-                        {
-                            var instrument = new EmptyInstrument(instrumentHeader.Filename);
-                            instruments.Add(instrument);
-                            break;
-                        }
+                    {
+                        var instrument = new EmptyInstrument(instrumentHeader.Filename);
+                        module.Instruments.Add(instrument);
+                        break;
+                    }
 
                     case AdlibInstrumentData instrumentData:
-                        {
-                            var instrument = new AdlibInstrument(instrumentHeader.Filename,
-                                instrumentData.SampleName);
-                            instruments.Add(instrument);
-                            break;
-                        }
+                    {
+                        var instrument = new AdlibInstrument(instrumentHeader.Filename, instrumentData.SampleName);
+                        module.Instruments.Add(instrument);
+                        break;
+                    }
 
                     case SampleInstrumentData instrumentData:
-                        {
-                            var sampleDataPointer = (instrumentData.UpperSampleDataPointer << 16) & instrumentData.LowerSampleDataPointer;
-                            var sampleDataOffset = sampleDataPointer << 4;
-                            var sampleDataLength = instrumentData.Length & 0xFFFF;
-                            var sampleData = new byte[sampleDataLength];
-                            stream.Seek(sampleDataOffset, SeekOrigin.Begin);
-                            stream.Read(sampleData, 0, sampleData.Length);
-                            var instrument = new SampleInstrument(instrumentHeader.Filename,
-                                instrumentData.LoopStart,
-                                instrumentData.LoopEnd,
-                                instrumentData.Volume,
-                                instrumentData.Packing,
-                                instrumentData.Flags,
-                                instrumentData.SampleRate,
-                                instrumentData.SampleName,
-                                sampleData);
-                            instruments.Add(instrument);
-                            break;
-                        }
+                    {
+                        var sampleDataPointer = (instrumentData.UpperSampleDataPointer << 16) & instrumentData.LowerSampleDataPointer;
+                        var sampleDataOffset = sampleDataPointer << 4;
+                        var sampleDataLength = instrumentData.Length & 0xFFFF;
+                        var sampleData = new byte[sampleDataLength];
+                        stream.Seek(sampleDataOffset, SeekOrigin.Begin);
+                        stream.Read(sampleData, 0, sampleData.Length);
+                        var instrument = new SampleInstrument(instrumentHeader.Filename,
+                            instrumentData.LoopStart,
+                            instrumentData.LoopEnd,
+                            instrumentData.Volume,
+                            instrumentData.Packing,
+                            instrumentData.Flags,
+                            instrumentData.SampleRate,
+                            instrumentData.SampleName,
+                            sampleData);
+                        module.Instruments.Add(instrument);
+                        break;
+                    }
                 }
             }
 
-            var patterns = new List<Pattern>(header.PatternPointerList.Count);
-            foreach (var patternPointer in header.PatternPointerList)
+            foreach (var patternPointer in moduleHeader.PatternPointerList)
             {
                 var patternOffset = patternPointer << 4;
                 stream.Seek(patternOffset, SeekOrigin.Begin);
-                var packedPattern = serializer.Deserialize<PackedPattern>(stream);
+                var packedPattern = moduleSerializer.Deserialize<PackedPattern>(stream);
                 var pattern = new Pattern();
                 using (var rowDataStream = new MemoryStream(packedPattern.Data))
                 {
@@ -125,7 +141,7 @@ namespace ModuleTracker.Formats.S3M
                     {
                         while (true)
                         {
-                            var cellData = serializer.Deserialize<PatternCellData>(rowDataStream);
+                            var cellData = moduleSerializer.Deserialize<PatternCellData>(rowDataStream);
                             if (cellData.What == 0)
                             {
                                 break;
@@ -143,19 +159,92 @@ namespace ModuleTracker.Formats.S3M
                         }
                     }
                 }
-                patterns.Add(pattern);
+
+                module.Patterns.Add(pattern);
             }
 
-            var module = new Module();
-            module.Title = header.Title.Trim('\0');
-            module.GlobalVolume = header.GlobalVolume;
-            module.InitialSpeed = header.InitialSpeed;
-            module.InitialTempo = header.InitialTempo;
-            module.Stereo = (header.MasterVolume & 0x80) != 0;
-            module.MasterVolume = (byte)(header.MasterVolume & 0x7F);
-            module.Instruments.AddRange(instruments);
-            module.Patterns.AddRange(patterns);
-            module.PatternOrderList.AddRange(header.PatternOrderList);
+            for (var i = 0; i < moduleHeader.ChannelSettings.Length; ++i)
+            {
+                var channelSettingData = moduleHeader.ChannelSettings[i];
+
+                var channelSetting = module.ChannelSettings[i];
+                channelSetting.Unused = channelSettingData == 0xFF;
+                channelSetting.Disabled = (channelSettingData & 0x80) != 0;
+                channelSetting.Type = (ChannelType)(channelSettingData & 0x7F);
+                channelSetting.Pan = 0x7;
+
+                if (moduleHeader.UseDefaultPan == 252)
+                {
+                    var panSettings = moduleHeader.ChannelPanSettings[i];
+                    if (panSettings.PanSpecified)
+                    {
+                        channelSetting.Pan = panSettings.Pan;
+                    }
+                    else
+                    {
+                        switch (channelSetting.Type)
+                        {
+                            case ChannelType.LeftSampleChannel1:
+                            case ChannelType.LeftSampleChannel2:
+                            case ChannelType.LeftSampleChannel3:
+                            case ChannelType.LeftSampleChannel4:
+                            case ChannelType.LeftSampleChannel5:
+                            case ChannelType.LeftSampleChannel6:
+                            case ChannelType.LeftSampleChannel7:
+                            case ChannelType.LeftSampleChannel8:
+                                channelSetting.Pan = 0x3;
+                                break;
+
+                            case ChannelType.RightSampleChannel1:
+                            case ChannelType.RightSampleChannel2:
+                            case ChannelType.RightSampleChannel3:
+                            case ChannelType.RightSampleChannel4:
+                            case ChannelType.RightSampleChannel5:
+                            case ChannelType.RightSampleChannel6:
+                            case ChannelType.RightSampleChannel7:
+                            case ChannelType.RightSampleChannel8:
+                                channelSetting.Pan = 0xC;
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    if (moduleHeader.Stereo)
+                    {
+                        switch (channelSetting.Type)
+                        {
+                            case ChannelType.LeftSampleChannel1:
+                            case ChannelType.LeftSampleChannel2:
+                            case ChannelType.LeftSampleChannel3:
+                            case ChannelType.LeftSampleChannel4:
+                            case ChannelType.LeftSampleChannel5:
+                            case ChannelType.LeftSampleChannel6:
+                            case ChannelType.LeftSampleChannel7:
+                            case ChannelType.LeftSampleChannel8:
+                                channelSetting.Pan = 0x3;
+                                break;
+
+                            case ChannelType.RightSampleChannel1:
+                            case ChannelType.RightSampleChannel2:
+                            case ChannelType.RightSampleChannel3:
+                            case ChannelType.RightSampleChannel4:
+                            case ChannelType.RightSampleChannel5:
+                            case ChannelType.RightSampleChannel6:
+                            case ChannelType.RightSampleChannel7:
+                            case ChannelType.RightSampleChannel8:
+                                channelSetting.Pan = 0xC;
+                                break;
+                        }
+                    }
+                }
+            }
+
+            foreach (var patternOrder in moduleHeader.PatternOrderList)
+            {
+                module.PatternOrderList.Add(patternOrder);
+            }
+
             return module;
         }
     }
