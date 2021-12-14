@@ -19,17 +19,728 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ModuleTracker.Mvvm.S3M"
+             xmlns:mtm="clr-namespace:ModuleTracker.Mvvm;assembly=ModuleTracker.Mvvm"
+             xmlns:mtms="clr-namespace:ModuleTracker.Mvvm.S3M"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance Type=local:ModuleViewModel}">
-    <TabControl TabStripPlacement="Bottom">
-        <TabItem Header="Patterns">
-            <ContentControl Content="{Binding Patterns}"/>
-        </TabItem>
-        <TabItem Header="Instruments">
-            <ContentControl Content="{Binding Instruments}"/>
-        </TabItem>
-    </TabControl>
+             d:DataContext="{d:DesignInstance Type=mtms:ModuleViewModel}">
+    <UserControl.Resources>
+        <mtm:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter"/>
+
+        <Style x:Key="ChannelHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Bottom" Name="Dummy" Visibility="Collapsed"/>
+
+        <DataGrid Name="DataGrid"
+                  ItemsSource="{Binding Patterns}"
+                  AlternationCount="4"
+                  AlternatingRowBackground="#FFF4F4F4"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserResizeRows="False"
+                  EnableRowVirtualization="True"
+                  EnableColumnVirtualization="True"
+                  GridLinesVisibility="Vertical"
+                  VerticalGridLinesBrush="#FFC0C0C0"
+                  ColumnWidth="90"
+                  MinColumnWidth="90"
+                  MaxColumnWidth="90"
+                  RowHeaderWidth="25"
+                  RowHeight="25"
+                  MinRowHeight="25"
+                  MaxHeight="1600"
+                  MaxWidth="2880"
+                  ScrollViewer.CanContentScroll="True"
+                  TextBlock.FontFamily="Consolas"
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <DataGrid.RowHeaderStyle>
+                <Style TargetType="{x:Type DataGridRowHeader}">
+                    <Setter Property="Content" Value="{Binding RowIndex}"/>
+                </Style>
+            </DataGrid.RowHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Channel 1"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[0].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[0].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[0].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[0].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[0], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 2"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[1].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[1].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[1].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[1].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[1], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 3"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[2].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[2].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[2].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[2].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[2], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 4"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[3].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[3].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[3].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[3].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[3], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 5" 
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[4].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[4].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[4].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[4].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[4], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 6"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[5].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[5].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[5].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[5].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[5], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 7"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[6].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[6].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[6].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[6].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[6], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 8"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[7].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[7].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[7].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[7].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[7], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 9"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[8].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[8].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[8].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[8].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[8], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 10"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[9].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[9].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[9].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[9].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[9], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 11"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[10].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[10].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[10].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[10].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[10], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 12"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[11].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[11].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[11].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[11].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[11], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 13"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[12].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[12].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[12].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[12].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[12], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 14"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[13].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[13].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[13].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[13].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[13], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 15"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[14].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[14].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[14].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[14].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[14], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 16"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[15].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[15].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[15].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[15].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[15], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 17"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[16].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[16].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[16].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[16].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[16], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 18"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[17].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[17].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[17].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[17].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[17], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 19"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[18].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[18].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[18].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[18].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[18], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 20"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[19].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[19].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[19].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[19].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[19], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 21"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[20].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[20].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[20].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[20].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[20], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 22"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[21].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[21].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[21].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[21].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[21], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 23"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[22].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[22].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[22].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[22].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[22], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 24"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[23].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[23].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[23].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[23].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[23], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 25"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[24].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[24].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[24].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[24].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[24], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 26"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[25].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[25].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[25].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[25].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[25], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 27"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[26].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[26].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[26].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[26].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[26], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 28"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[27].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[27].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[27].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[27].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[27], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 29"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[28].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[28].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[28].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[28].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[28], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 30"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[29].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[29].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[29].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[29].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[29], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 31"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[30].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[30].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[30].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[30].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[30], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Channel 32"
+                                        HeaderStyle="{StaticResource ChannelHeaderStyle}"
+                                        IsReadOnly="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[31].Disabled, Mode=OneWay}"
+                                        Visibility="{Binding Source={x:Reference Name=Dummy}, Path=DataContext.Channels[31].Unused, Mode=OneWay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding}" TextAlignment="Center" />
+                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[31].Disabled}" HorizontalAlignment="Center"/>
+                                <Slider Minimum="0"
+                                        Maximum="15"
+                                        Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=DataContext.Channels[31].Pan}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <mtms:PatternCellView DataContext="{Binding Path=Channels[31], Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 </UserControl>

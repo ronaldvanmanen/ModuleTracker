@@ -14,39 +14,40 @@
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
 using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
 {
-    public sealed class PatternRowViewModel : ObservableObject
+    public sealed class ChannelViewModelCollection : IReadOnlyList<ChannelViewModel>
     {
         private readonly Module _module;
 
-        private readonly int _patternIndex;
+        private readonly ChannelViewModel[] _channels;
 
-        private readonly int _rowIndex;
+        public int Count => _channels.Length;
 
-        private readonly List<PatternCellViewModel> _channels;
+        public ChannelViewModel this[int index] => _channels[index] ??= new ChannelViewModel(_module, index);
 
-        public List<PatternCellViewModel> Channels => _channels;
-
-        public int PatternIndex => _patternIndex;
-
-        public int RowIndex => _rowIndex;
-
-        public PatternRowViewModel(Module module, int patternIndex, int rowIndex)
+        public ChannelViewModelCollection(Module module)
         {
-            _module = module;
-            _patternIndex = patternIndex;
-            _rowIndex = rowIndex;
+            _module = module ?? throw new ArgumentNullException(nameof(module));
+            _channels = new ChannelViewModel[_module.ChannelSettings.Count];
 
-            var pattern = _module.Patterns[_patternIndex];
-            var row = pattern[_rowIndex];
-            var channels = row.Select(channel => new PatternCellViewModel(channel));
-            _channels = new List<PatternCellViewModel>(channels);
+        }
+
+        public IEnumerator<ChannelViewModel> GetEnumerator()
+        {
+            for (var index = 0; index < _channels.Length; ++index)
+            {
+                yield return this[index];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _channels.GetEnumerator();
         }
     }
 }

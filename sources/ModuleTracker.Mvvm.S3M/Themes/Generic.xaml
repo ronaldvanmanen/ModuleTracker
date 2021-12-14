@@ -26,14 +26,6 @@
         <local:InstrumentListView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:PatternListViewModel}">
-        <local:PatternListView />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type local:PatternViewModel}">
-        <local:PatternView />
-    </DataTemplate>
-
     <DataTemplate DataType="{x:Type local:PatternCellViewModel}">
         <local:PatternCellView />
     </DataTemplate>

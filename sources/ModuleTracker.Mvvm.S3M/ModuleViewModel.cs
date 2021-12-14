@@ -15,6 +15,7 @@
 
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
@@ -23,9 +24,9 @@ namespace ModuleTracker.Mvvm.S3M
     {
         private readonly Module _module;
 
-        private readonly PatternListViewModel _patterns;
+        private readonly ChannelViewModelCollection _channels;
 
-        private readonly InstrumentListViewModel _instruments;
+        private readonly PatternRowViewModelCollection _patterns;
 
         [Category("General")]
         [DisplayName("Title")]
@@ -38,13 +39,14 @@ namespace ModuleTracker.Mvvm.S3M
             }
             set
             {
-                SetProperty(_module.Title, value, _module, (module, title) => _module.Title = title);
+                SetProperty(_module.Title, value, _module, (module, title) => module.Title = title);
             }
         }
 
         [Category("General")]
         [DisplayName("Global Volume")]
-        [Description("Sets the global volume of the module.")]
+        [Description("Sets the global volume of the module affecting all channels.")]
+        [Range(0, 40)]
         public byte GlobalVolume
         {
             get
@@ -53,13 +55,14 @@ namespace ModuleTracker.Mvvm.S3M
             }
             set
             {
-                SetProperty(_module.GlobalVolume, value, _module, (module, globalVolume) => _module.GlobalVolume = globalVolume);
+                SetProperty(_module.GlobalVolume, value, _module, (module, globalVolume) => module.GlobalVolume = globalVolume);
             }
         }
 
         [Category("General")]
         [DisplayName("Initial Speed")]
-        [Description("Sets the initial speed of the module.")]
+        [Description("Sets the speed at which the module is played when no other speed is specified.")]
+        [DefaultValue(6)]
         public byte InitialSpeed
         {
             get
@@ -68,13 +71,14 @@ namespace ModuleTracker.Mvvm.S3M
             }
             set
             {
-                SetProperty(_module.InitialSpeed, value, _module, (module, initialSpeed) => _module.InitialSpeed = initialSpeed);
+                SetProperty(_module.InitialSpeed, value, _module, (module, globalSpeed) => module.InitialSpeed = globalSpeed);
             }
         }
 
         [Category("General")]
         [DisplayName("Initial Tempo")]
-        [Description("Sets the initial tempo of the module.")]
+        [Description("Sets the tempo at which the module is played when no other tempo is specified.")]
+        [DefaultValue(0x7D)]
         public byte InitialTempo
         {
             get
@@ -83,7 +87,22 @@ namespace ModuleTracker.Mvvm.S3M
             }
             set
             {
-                SetProperty(_module.InitialTempo, value, _module, (module, initialSpeed) => _module.InitialTempo = initialSpeed);
+                SetProperty(_module.InitialTempo, value, _module, (module, globalTempo) => module.InitialTempo = globalTempo);
+            }
+        }
+
+        [Category("General")]
+        [DisplayName("Stereo")]
+        [Description("Enable stereo playblack of the module on stereo cards, otherwise the song will be played mono regardless of the channel allocations.")]
+        public bool Stereo
+        {
+            get
+            {
+                return _module.Stereo;
+            }
+            set
+            {
+                SetProperty(_module.Stereo, value, _module, (module, stereo) => module.Stereo = stereo);
             }
         }
 
@@ -98,22 +117,22 @@ namespace ModuleTracker.Mvvm.S3M
             }
             set
             {
-                SetProperty(_module.MasterVolume, value, _module, (module, masterVolume) => _module.MasterVolume = masterVolume);
+                SetProperty(_module.MasterVolume, value, _module, (module, masterVolume) => module.MasterVolume = masterVolume);
             }
         }
 
         [Browsable(false)]
-        public PatternListViewModel Patterns => _patterns;
+        public ChannelViewModelCollection Channels => _channels;
 
         [Browsable(false)]
-        public InstrumentListViewModel Instruments => _instruments;
+        public PatternRowViewModelCollection Patterns => _patterns;
 
         public ModuleViewModel(Module module)
         : base(module.Title)
         {
             _module = module ?? throw new ArgumentNullException(nameof(module));
-            _patterns = new PatternListViewModel(_module);
-            _instruments = new InstrumentListViewModel(_module);
+            _channels = new ChannelViewModelCollection(_module);
+            _patterns = new PatternRowViewModelCollection(_module);
         }
     }
 }
