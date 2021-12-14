@@ -38,8 +38,6 @@
 
         <DataGrid Name="DataGrid"
                   ItemsSource="{Binding Patterns}"
-                  AlternationCount="4"
-                  AlternatingRowBackground="#FFF4F4F4"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
