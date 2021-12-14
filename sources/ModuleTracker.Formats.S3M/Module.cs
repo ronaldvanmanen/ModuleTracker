@@ -168,9 +168,9 @@ namespace ModuleTracker.Formats.S3M
                 var channelSettingData = moduleHeader.ChannelSettings[i];
 
                 var channelSetting = module.ChannelSettings[i];
-                channelSetting.Unused = channelSettingData == 0xFF;
-                channelSetting.Disabled = (channelSettingData & 0x80) != 0;
-                channelSetting.Type = (ChannelType)(channelSettingData & 0x7F);
+                channelSetting.Unused = channelSettingData.Unused;
+                channelSetting.Disabled = channelSettingData.Disabled;
+                channelSetting.Type = channelSettingData.Type;
                 channelSetting.Pan = 0x7;
 
                 if (moduleHeader.UseDefaultPan == 252)

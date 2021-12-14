@@ -110,7 +110,7 @@ namespace ModuleTracker.Formats.S3M
         [FieldOrder(20)]
         [FieldCount(32)]
         [FieldEndianness(Endianness.Little)]
-        public byte[] ChannelSettings { get; set; } = new byte[32];
+        public ChannelSettingData[] ChannelSettings { get; set; } = new ChannelSettingData[32];
 
         [FieldOrder(21)]
         [FieldCount(nameof(OrderCount))]
