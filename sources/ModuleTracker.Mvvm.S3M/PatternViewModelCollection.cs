@@ -16,12 +16,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
 {
-    public sealed class PatternRowViewModelCollection
+    public sealed class PatternViewModelCollection
     : IList<PatternRowViewModel>
     , IList
     {
@@ -62,7 +61,7 @@ namespace ModuleTracker.Mvvm.S3M
 
         public object SyncRoot => this;
 
-        public PatternRowViewModelCollection(Module module)
+        public PatternViewModelCollection(Module module)
         {
             _module = module ?? throw new ArgumentNullException(nameof(module));
             _items = new Dictionary<int, PatternRowViewModel>();

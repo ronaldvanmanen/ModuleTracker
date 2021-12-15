@@ -26,7 +26,7 @@ namespace ModuleTracker.Mvvm.S3M
 
         private readonly ChannelViewModelCollection _channels;
 
-        private readonly PatternRowViewModelCollection _patterns;
+        private readonly PatternViewModelCollection _patterns;
 
         [Category("General")]
         [DisplayName("Title")]
@@ -125,14 +125,14 @@ namespace ModuleTracker.Mvvm.S3M
         public ChannelViewModelCollection Channels => _channels;
 
         [Browsable(false)]
-        public PatternRowViewModelCollection Patterns => _patterns;
+        public PatternViewModelCollection Patterns => _patterns;
 
         public ModuleViewModel(Module module)
         : base(module.Title)
         {
             _module = module ?? throw new ArgumentNullException(nameof(module));
             _channels = new ChannelViewModelCollection(_module);
-            _patterns = new PatternRowViewModelCollection(_module);
+            _patterns = new PatternViewModelCollection(_module);
         }
     }
 }
