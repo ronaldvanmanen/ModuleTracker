@@ -28,15 +28,6 @@ namespace ModuleTracker.Mvvm
 
         private bool _isPaneSelected;
 
-        protected PaneViewModel()
-        : this(null!)
-        { }
-
-        protected PaneViewModel(string title)
-        {
-            _paneTitle = title;
-        }
-
         [Browsable(false)]
         public string PaneContentId
         {

@@ -36,8 +36,9 @@ namespace ModuleTracker
         }
 
         public PropertiesViewModel()
-        : base("Properties")
-        { }
+        {
+            PaneTitle = "Properties";
+        }
 
         protected override void OnActivated()
         {

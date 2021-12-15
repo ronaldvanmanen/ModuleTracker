@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -80,7 +81,10 @@ namespace ModuleTracker
                     try
                     {
                         var module = Module.Deserialize(moduleFileName);
-                        var moduleViewModel = new ModuleViewModel(module);
+                        var moduleViewModel = new ModuleViewModel(module)
+                        {
+                            PaneTitle = Path.GetFileName(moduleFileName)
+                        };
                         Application.Current.Dispatcher.Invoke(() => Documents.Add(moduleViewModel));
                     }
                     catch (Exception e)

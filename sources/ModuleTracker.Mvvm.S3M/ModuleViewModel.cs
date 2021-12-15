@@ -128,7 +128,6 @@ namespace ModuleTracker.Mvvm.S3M
         public PatternViewModelCollection Patterns => _patterns;
 
         public ModuleViewModel(Module module)
-        : base(module.Title)
         {
             _module = module ?? throw new ArgumentNullException(nameof(module));
             _channels = new ChannelViewModelCollection(_module);

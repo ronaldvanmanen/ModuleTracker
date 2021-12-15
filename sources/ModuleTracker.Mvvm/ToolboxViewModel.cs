@@ -20,10 +20,6 @@ namespace ModuleTracker.Mvvm
     {
         private bool _isPaneVisible;
 
-        protected ToolboxViewModel(string title)
-        : base(title)
-        { }
-
         public bool IsPaneVisible
         {
             get

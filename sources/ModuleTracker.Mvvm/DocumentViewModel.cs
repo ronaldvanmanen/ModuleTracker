@@ -15,14 +15,5 @@
 
 namespace ModuleTracker.Mvvm
 {
-    public abstract class DocumentViewModel : PaneViewModel
-    {
-        protected DocumentViewModel()
-        : this(null!)
-        { }
-
-        protected DocumentViewModel(string title)
-        : base(title)
-        { }
-    }
+    public abstract class DocumentViewModel : PaneViewModel { }
 }
