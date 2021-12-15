@@ -95,10 +95,16 @@ namespace ModuleTracker.Formats.S3M
 
             foreach (var patternPointer in moduleHeader.PatternPointerList)
             {
+                var pattern = new Pattern();
+                module.Patterns.Add(pattern);
+                if (patternPointer == 0)
+                {
+                    continue;
+                }
+
                 var patternOffset = patternPointer << 4;
                 stream.Seek(patternOffset, SeekOrigin.Begin);
                 var packedPattern = moduleSerializer.Deserialize<PackedPattern>(stream);
-                var pattern = new Pattern();
                 using (var rowDataStream = new MemoryStream(packedPattern.Data))
                 {
                     for (var row = 0; row < 64; ++row)
@@ -123,8 +129,6 @@ namespace ModuleTracker.Formats.S3M
                         }
                     }
                 }
-
-                module.Patterns.Add(pattern);
             }
 
             for (var i = 0; i < moduleHeader.ChannelSettings.Length; ++i)
