@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
+using System.Diagnostics;
 using BinarySerialization;
 
 namespace ModuleTracker.Formats.S3M
@@ -23,7 +24,9 @@ namespace ModuleTracker.Formats.S3M
         {
             if (value is ushort length)
             {
-                return length - 2;
+                var result = length - sizeof(ushort);
+                Debug.Assert(result > 0);
+                return result;
             }
             return 0;
         }
@@ -32,7 +35,7 @@ namespace ModuleTracker.Formats.S3M
         {
             if (value is ushort length)
             {
-                return length + 2;
+                return length + sizeof(ushort);
             }
             return 0;
         }
