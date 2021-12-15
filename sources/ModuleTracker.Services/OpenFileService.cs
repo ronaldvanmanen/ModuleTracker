@@ -25,7 +25,8 @@ namespace ModuleTracker.Services
             var dialog = new OpenFileDialog
             {
                 Title = title,
-                Filter = filter
+                Filter = filter,
+                Multiselect = true
             };
 
             var dialogResult = dialog.ShowDialog();
