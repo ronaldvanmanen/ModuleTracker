@@ -141,7 +141,7 @@ namespace ModuleTracker.Formats.S3M
                 channelSetting.Type = channelSettingData.Type;
                 channelSetting.Pan = 0x7;
 
-                if (moduleHeader.UseDefaultPan == 252)
+                if (moduleHeader.ChannelPanSettings != null)
                 {
                     var panSettings = moduleHeader.ChannelPanSettings[i];
                     if (panSettings.PanSpecified)

@@ -96,7 +96,7 @@ namespace ModuleTracker.Formats.S3M
 
         [FieldOrder(17)]
         [FieldEndianness(Endianness.Little)]
-        public byte UseDefaultPan { get; set; }
+        public byte ChannelPanSettingsPresent { get; set; }
 
         [FieldOrder(18)]
         [FieldCount(8)]
@@ -110,29 +110,29 @@ namespace ModuleTracker.Formats.S3M
         [FieldOrder(20)]
         [FieldCount(32)]
         [FieldEndianness(Endianness.Little)]
-        public ChannelSettingData[] ChannelSettings { get; set; } = new ChannelSettingData[32];
+        public ChannelSettingData[] ChannelSettings { get; set; } = null!;
 
         [FieldOrder(21)]
         [FieldCount(nameof(OrderCount))]
         [FieldEndianness(Endianness.Little)]
-        public List<byte> PatternOrderList { get; set; } = new List<byte>();
+        public byte[] PatternOrderList { get; set; } = null!;
 
         [FieldOrder(22)]
         [FieldCount(nameof(InstrumentCount))]
         [FieldEndianness(Endianness.Little)]
-        public List<ushort> InstrumentPointerList { get; set; } = new List<ushort>();
+        public ushort[] InstrumentPointerList { get; set; } = null!;
 
         [FieldOrder(23)]
         [FieldCount(nameof(PatternCount))]
         [FieldEndianness(Endianness.Little)]
-        public List<ushort> PatternPointerList { get; set; } = new List<ushort>();
+        public ushort[] PatternPointerList { get; set; } = null!;
 
-        private const byte HasChannelPanSettings = 252;
+        private const byte ChannelPanSettingsPresentValue = 252;
 
         [FieldOrder(24)]
         [FieldCount(32)]
         [ItemLength(1)]
-        [SerializeWhen(nameof(UseDefaultPan), HasChannelPanSettings)]
-        public ChannelPanSettingData[] ChannelPanSettings { get; set; } = new ChannelPanSettingData[32];
+        [SerializeWhen(nameof(ChannelPanSettingsPresent), ChannelPanSettingsPresentValue)]
+        public ChannelPanSettingData[] ChannelPanSettings { get; set; } = null!;
     }
 }
