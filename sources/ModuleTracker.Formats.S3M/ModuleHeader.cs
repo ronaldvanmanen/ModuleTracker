@@ -88,7 +88,7 @@ namespace ModuleTracker.Formats.S3M
         [FieldOrder(15)]
         [FieldEndianness(Endianness.Little)]
         [FieldBitLength(1)]
-        public bool Stereo { get; set; }
+        public bool StereoPlayback { get; set; }
 
         [FieldOrder(16)]
         [FieldEndianness(Endianness.Little)]

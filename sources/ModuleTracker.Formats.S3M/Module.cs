@@ -13,11 +13,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BinarySerialization;
 
 namespace ModuleTracker.Formats.S3M
 {
@@ -31,7 +29,7 @@ namespace ModuleTracker.Formats.S3M
 
         public byte InitialTempo { get; set; }
 
-        public bool Stereo { get; set; }
+        public bool StereoPlayback { get; set; }
 
         public byte MasterVolume { get; set; }
 
@@ -49,7 +47,7 @@ namespace ModuleTracker.Formats.S3M
             GlobalVolume = 0;
             InitialSpeed = 0;
             InitialTempo = 0;
-            Stereo = false;
+            StereoPlayback = false;
             MasterVolume = 0;
             ChannelSettings = Enumerable.Range(0, 32).Select(_ => new ChannelSetting()).ToArray();
             PatternOrderList = new List<byte>();

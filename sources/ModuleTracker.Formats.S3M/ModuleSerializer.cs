@@ -45,7 +45,7 @@ namespace ModuleTracker.Formats.S3M
                 GlobalVolume = moduleHeader.GlobalVolume,
                 InitialSpeed = moduleHeader.InitialSpeed,
                 InitialTempo = moduleHeader.InitialTempo,
-                Stereo = moduleHeader.Stereo,
+                StereoPlayback = moduleHeader.StereoPlayback,
                 MasterVolume = moduleHeader.MasterVolume
             };
 
@@ -174,7 +174,7 @@ namespace ModuleTracker.Formats.S3M
                 }
                 else
                 {
-                    if (moduleHeader.Stereo)
+                    if (moduleHeader.StereoPlayback)
                     {
                         switch (channelSetting.Type)
                         {

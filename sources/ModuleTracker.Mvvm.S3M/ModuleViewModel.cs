@@ -94,15 +94,15 @@ namespace ModuleTracker.Mvvm.S3M
         [Category("General")]
         [DisplayName("Stereo")]
         [Description("Enable stereo playblack of the module on stereo cards, otherwise the song will be played mono regardless of the channel allocations.")]
-        public bool Stereo
+        public bool StereoPlayback
         {
             get
             {
-                return _module.Stereo;
+                return _module.StereoPlayback;
             }
             set
             {
-                SetProperty(_module.Stereo, value, _module, (module, stereo) => module.Stereo = stereo);
+                SetProperty(_module.StereoPlayback, value, _module, (module, stereo) => module.StereoPlayback = stereo);
             }
         }
 
