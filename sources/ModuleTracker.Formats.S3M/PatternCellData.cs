@@ -19,33 +19,59 @@ namespace ModuleTracker.Formats.S3M
 {
     internal sealed class PatternCellData
     {
+        [Ignore]
+        public byte What
+        {
+            get
+            {
+                byte result = Channel;
+                result |= (byte)((CommandAndInfoSpecified ? 1 : 0) << 7);
+                result |= (byte)((VolumeSpecified ? 1 : 0) << 6);
+                result |= (byte)((NoteAndInstrumentSpecified ? 1 : 0) << 5);
+                return result;
+            }
+        }
+
         [FieldOrder(0)]
+        [FieldBitLength(5)]
         [SerializeAs(SerializedType.UInt1)]
-        public byte What { get; set; }
+        public byte Channel { get; set; }
 
         [FieldOrder(1)]
-        [SerializeAs(SerializedType.UInt1)]
-        [SerializeWhen(nameof(What), true, ConverterType = typeof(PatternCellDataWhatConverter), ConverterParameter = (byte)0x20u)]
-        public byte Note { get; set; }
+        [FieldBitLength(1)]
+        public bool NoteAndInstrumentSpecified { get; set; }
 
         [FieldOrder(2)]
-        [SerializeAs(SerializedType.UInt1)]
-        [SerializeWhen(nameof(What), true, ConverterType = typeof(PatternCellDataWhatConverter), ConverterParameter = (byte)0x20u)]
-        public byte Instrument { get; set; }
+        [FieldBitLength(1)]
+        public bool VolumeSpecified { get; set; }
 
         [FieldOrder(3)]
-        [SerializeAs(SerializedType.UInt1)]
-        [SerializeWhen(nameof(What), true, ConverterType = typeof(PatternCellDataWhatConverter), ConverterParameter = (byte)0x40u)]
-        public byte Volume { get; set; }
+        [FieldBitLength(1)]
+        public bool CommandAndInfoSpecified { get; set; }
 
         [FieldOrder(4)]
         [SerializeAs(SerializedType.UInt1)]
-        [SerializeWhen(nameof(What), true, ConverterType = typeof(PatternCellDataWhatConverter), ConverterParameter = (byte)0x80u)]
-        public byte Command { get; set; }
+        [SerializeWhen(nameof(NoteAndInstrumentSpecified), true)]
+        public byte Note { get; set; }
 
         [FieldOrder(5)]
         [SerializeAs(SerializedType.UInt1)]
-        [SerializeWhen(nameof(What), true, ConverterType = typeof(PatternCellDataWhatConverter), ConverterParameter = (byte)0x80u)]
+        [SerializeWhen(nameof(NoteAndInstrumentSpecified), true)]
+        public byte Instrument { get; set; }
+
+        [FieldOrder(6)]
+        [SerializeAs(SerializedType.UInt1)]
+        [SerializeWhen(nameof(VolumeSpecified), true)]
+        public byte Volume { get; set; }
+
+        [FieldOrder(7)]
+        [SerializeAs(SerializedType.UInt1)]
+        [SerializeWhen(nameof(CommandAndInfoSpecified), true)]
+        public byte Command { get; set; }
+
+        [FieldOrder(8)]
+        [SerializeAs(SerializedType.UInt1)]
+        [SerializeWhen(nameof(CommandAndInfoSpecified), true)]
         public byte Info { get; set; }
     }
 }
