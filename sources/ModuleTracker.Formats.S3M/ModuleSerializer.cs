@@ -21,6 +21,12 @@ namespace ModuleTracker.Formats.S3M
 {
     internal sealed class ModuleSerializer
     {
+        private const int DefaultMonoPanPosition = 0x7;
+
+        private const int DefaultLeftChannelPanPosition = 0x3;
+
+        private const int DefaultRightChannelPanPosition = 0xC;
+
         public static Module Deserialize(string filename)
         {
             using var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, 65536, false);
@@ -139,7 +145,7 @@ namespace ModuleTracker.Formats.S3M
                 channelSetting.Unused = channelSettingData.Unused;
                 channelSetting.Disabled = channelSettingData.Disabled;
                 channelSetting.Type = channelSettingData.Type;
-                channelSetting.Pan = 0x7;
+                channelSetting.Pan = DefaultMonoPanPosition;
 
                 if (moduleHeader.ChannelPanSettings != null)
                 {
@@ -160,7 +166,7 @@ namespace ModuleTracker.Formats.S3M
                             case ChannelType.LeftSampleChannel6:
                             case ChannelType.LeftSampleChannel7:
                             case ChannelType.LeftSampleChannel8:
-                                channelSetting.Pan = 0x3;
+                                channelSetting.Pan = DefaultLeftChannelPanPosition;
                                 break;
 
                             case ChannelType.RightSampleChannel1:
@@ -171,7 +177,7 @@ namespace ModuleTracker.Formats.S3M
                             case ChannelType.RightSampleChannel6:
                             case ChannelType.RightSampleChannel7:
                             case ChannelType.RightSampleChannel8:
-                                channelSetting.Pan = 0xC;
+                                channelSetting.Pan = DefaultRightChannelPanPosition;
                                 break;
                         }
                     }
