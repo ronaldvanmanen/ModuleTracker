@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using BinarySerialization;
 
 namespace ModuleTracker.Formats.S3M
