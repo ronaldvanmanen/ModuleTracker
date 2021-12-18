@@ -53,6 +53,7 @@ namespace ModuleTracker.Mvvm.S3M
         [Category("General")]
         [DisplayName("Title")]
         [Description("Sets the title of the module.")]
+        [MaxLength(Module.MaxTitleLength)]
         public string Title
         {
             get
@@ -68,7 +69,7 @@ namespace ModuleTracker.Mvvm.S3M
         [Category("General")]
         [DisplayName("Global Volume")]
         [Description("Sets the global volume of the module affecting all channels.")]
-        [Range(0, 40)]
+        [Range(Module.MinVolume, Module.MaxVolume)]
         public byte GlobalVolume
         {
             get
@@ -84,37 +85,38 @@ namespace ModuleTracker.Mvvm.S3M
         [Category("General")]
         [DisplayName("Initial Speed")]
         [Description("Sets the speed at which the module is played when no other speed is specified.")]
-        [DefaultValue(6)]
-        public byte InitialSpeed
+        [DefaultValue(Module.DefaultSpeed)]
+        [Range(Module.MinSpeed, Module.MaxSpeed)]
+        public byte GlobalSpeed
         {
             get
             {
-                return _module.InitialSpeed;
+                return _module.GlobalSpeed;
             }
             set
             {
-                SetProperty(_module.InitialSpeed, value, _module, (module, globalSpeed) => module.InitialSpeed = globalSpeed);
+                SetProperty(_module.GlobalSpeed, value, _module, (module, globalSpeed) => module.GlobalSpeed = globalSpeed);
             }
         }
 
         [Category("General")]
         [DisplayName("Initial Tempo")]
         [Description("Sets the tempo at which the module is played when no other tempo is specified.")]
-        [DefaultValue(0x7D)]
-        public byte InitialTempo
+        [DefaultValue(Module.DefaultTempo)]
+        public byte GlobalTempo
         {
             get
             {
-                return _module.InitialTempo;
+                return _module.GlobalTempo;
             }
             set
             {
-                SetProperty(_module.InitialTempo, value, _module, (module, globalTempo) => module.InitialTempo = globalTempo);
+                SetProperty(_module.GlobalTempo, value, _module, (module, globalTempo) => module.GlobalTempo = globalTempo);
             }
         }
 
         [Category("General")]
-        [DisplayName("Stereo")]
+        [DisplayName("Stereo Playback")]
         [Description("Enable stereo playblack of the module on stereo cards, otherwise the song will be played mono regardless of the channel allocations.")]
         public bool StereoPlayback
         {
@@ -131,6 +133,7 @@ namespace ModuleTracker.Mvvm.S3M
         [Category("General")]
         [DisplayName("Master Volume")]
         [Description("Sets the master volume of the module.")]
+        [Range(Module.MinMasterVolume, Module.MaxMasterVolume)]
         public byte MasterVolume
         {
             get

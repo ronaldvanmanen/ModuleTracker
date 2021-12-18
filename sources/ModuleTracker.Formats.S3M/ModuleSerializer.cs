@@ -49,8 +49,8 @@ namespace ModuleTracker.Formats.S3M
             {
                 Title = moduleHeader.Title,
                 GlobalVolume = moduleHeader.GlobalVolume,
-                InitialSpeed = moduleHeader.InitialSpeed,
-                InitialTempo = moduleHeader.InitialTempo,
+                GlobalSpeed = moduleHeader.InitialSpeed,
+                GlobalTempo = moduleHeader.InitialTempo,
                 StereoPlayback = moduleHeader.StereoPlayback,
                 MasterVolume = moduleHeader.MasterVolume
             };
