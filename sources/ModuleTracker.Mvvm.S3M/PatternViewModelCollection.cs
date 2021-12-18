@@ -16,6 +16,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
@@ -23,22 +25,27 @@ namespace ModuleTracker.Mvvm.S3M
     public sealed class PatternViewModelCollection
     : IList<PatternRowViewModel>
     , IList
+    , INotifyCollectionChanged
+    , INotifyPropertyChanging
+    , INotifyPropertyChanged
     {
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
+        public event PropertyChangingEventHandler? PropertyChanging;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         private readonly Module _module;
 
-        private readonly Dictionary<int, PatternRowViewModel> _items;
+        private readonly Dictionary<int, PatternViewModel> _patterns;
+
+        private int _patternIndex;
 
         public PatternRowViewModel this[int index]
         {
             get
             {
-                if (!_items.TryGetValue(index, out var item))
-                {
-                    var patternIndex = Math.DivRem(index, 64, out var rowIndex);
-                    item = new PatternRowViewModel(_module, patternIndex, rowIndex);
-                    _items.Add(index, item);
-                }
-                return item;
+                return GetItemAt(index);
             }
 
             set => throw new NotSupportedException();
@@ -51,20 +58,69 @@ namespace ModuleTracker.Mvvm.S3M
             set => throw new NotSupportedException();
         }
 
-        public int Count => _module.Patterns.Count * 64;
+        public int Count
+        {
+            get
+            {
+                var pattern = GetOrCreatePattern(_patternIndex);
+                var count = pattern.Count;
+                return count;
+            }
+        }
 
         public bool IsReadOnly => true;
 
-        public bool IsFixedSize => false;
+        public bool IsFixedSize => true;
 
         public bool IsSynchronized => false;
 
         public object SyncRoot => this;
 
+        public int PatternIndex => _patternIndex;
+
+        public int PatternCount => _module.Patterns.Count;
+
         public PatternViewModelCollection(Module module)
         {
             _module = module ?? throw new ArgumentNullException(nameof(module));
-            _items = new Dictionary<int, PatternRowViewModel>();
+            _patterns = new Dictionary<int, PatternViewModel>();
+        }
+
+        public void GotoFirstPattern()
+        {
+            GotoPattern(0);
+        }
+
+        public void GotoPreviousPattern()
+        {
+            GotoPattern(PatternIndex - 1);
+        }
+
+        public void GotoNextPattern()
+        {
+            GotoPattern(PatternIndex + 1);
+        }
+
+        public void GotoLastPattern()
+        {
+            GotoPattern(PatternCount - 1);
+        }
+
+        public void GotoPattern(int patternIndex)
+        {
+            if (patternIndex < 0 || patternIndex >= _module.Patterns.Count)
+            {
+                return;
+            }
+
+            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(PatternIndex)));
+            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(PatternCount)));
+
+            _patternIndex = patternIndex;
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PatternIndex)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PatternCount)));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
         public IEnumerator<PatternRowViewModel> GetEnumerator()
@@ -77,12 +133,14 @@ namespace ModuleTracker.Mvvm.S3M
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _items.GetEnumerator();
+            return _patterns.GetEnumerator();
         }
 
         public int IndexOf(PatternRowViewModel item)
         {
-            return item.PatternIndex * item.RowIndex;
+            var pattern = GetOrCreatePattern(_patternIndex);
+            var index = pattern.IndexOf(item);
+            return index;
         }
 
         public void Insert(int index, PatternRowViewModel item)
@@ -152,6 +210,25 @@ namespace ModuleTracker.Mvvm.S3M
         public void CopyTo(Array array, int index)
         {
             throw new NotImplementedException();
+        }
+
+        private PatternRowViewModel GetItemAt(int index)
+        {
+            var pattern = GetOrCreatePattern(_patternIndex);
+            var patternRow = pattern[index];
+            return patternRow;
+        }
+
+        private PatternViewModel GetOrCreatePattern(int index)
+        {
+            if (_patterns.TryGetValue(_patternIndex, out var pattern))
+            {
+                return pattern;
+            }
+
+            pattern = new PatternViewModel(_module, index);
+            _patterns.Add(_patternIndex, pattern);
+            return pattern;
         }
     }
 }

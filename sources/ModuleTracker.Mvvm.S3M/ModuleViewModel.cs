@@ -16,6 +16,8 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Input;
+using Microsoft.Toolkit.Mvvm.Input;
 using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
@@ -27,6 +29,26 @@ namespace ModuleTracker.Mvvm.S3M
         private readonly ChannelViewModelCollection _channels;
 
         private readonly PatternViewModelCollection _patterns;
+
+        private readonly RelayCommand _gotoFirstPatternCommand;
+
+        private readonly RelayCommand _gotoPreviousPatternCommand;
+
+        private readonly RelayCommand _gotoNextPatternCommand;
+
+        private readonly RelayCommand _gotoLastPatternCommand;
+
+        [Browsable(false)]
+        public ICommand GotoFirstPatternCommand => _gotoFirstPatternCommand;
+
+        [Browsable(false)]
+        public ICommand GotoPreviousPatternCommand => _gotoPreviousPatternCommand;
+
+        [Browsable(false)]
+        public ICommand GotoNextPatternCommand => _gotoNextPatternCommand;
+
+        [Browsable(false)]
+        public ICommand GotoLastPatternCommand => _gotoLastPatternCommand;
 
         [Category("General")]
         [DisplayName("Title")]
@@ -132,6 +154,66 @@ namespace ModuleTracker.Mvvm.S3M
             _module = module ?? throw new ArgumentNullException(nameof(module));
             _channels = new ChannelViewModelCollection(_module);
             _patterns = new PatternViewModelCollection(_module);
+            _gotoFirstPatternCommand = new RelayCommand(GotoFirstPattern, CanGotoFirstPattern);
+            _gotoPreviousPatternCommand = new RelayCommand(GotoPreviousPattern, CanGotoPreviousPattern);
+            _gotoNextPatternCommand = new RelayCommand(GotoNextPattern, CanGotoNextPattern);
+            _gotoLastPatternCommand = new RelayCommand(GotoLastPattern, CanGotoLastPattern);
+        }
+
+        private void GotoFirstPattern()
+        {
+            _patterns.GotoFirstPattern();
+            _gotoFirstPatternCommand.NotifyCanExecuteChanged();
+            _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
+            _gotoNextPatternCommand.NotifyCanExecuteChanged();
+            _gotoLastPatternCommand.NotifyCanExecuteChanged();
+        }
+
+        private bool CanGotoFirstPattern()
+        {
+            return _patterns.PatternIndex > 0 && _patterns.PatternCount > 1;
+        }
+
+        private void GotoPreviousPattern()
+        {
+            _patterns.GotoPreviousPattern();
+            _gotoFirstPatternCommand.NotifyCanExecuteChanged();
+            _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
+            _gotoNextPatternCommand.NotifyCanExecuteChanged();
+            _gotoLastPatternCommand.NotifyCanExecuteChanged();
+        }
+
+        private bool CanGotoPreviousPattern()
+        {
+            return _patterns.PatternIndex > 0 && _patterns.PatternCount > 1;
+        }
+
+        private void GotoNextPattern()
+        {
+            _patterns.GotoNextPattern();
+            _gotoFirstPatternCommand.NotifyCanExecuteChanged();
+            _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
+            _gotoNextPatternCommand.NotifyCanExecuteChanged();
+            _gotoLastPatternCommand.NotifyCanExecuteChanged();
+        }
+
+        private bool CanGotoNextPattern()
+        {
+            return _patterns.PatternIndex < _patterns.PatternCount - 1;
+        }
+
+        private void GotoLastPattern()
+        {
+            _patterns.GotoLastPattern();
+            _gotoFirstPatternCommand.NotifyCanExecuteChanged();
+            _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
+            _gotoNextPatternCommand.NotifyCanExecuteChanged();
+            _gotoLastPatternCommand.NotifyCanExecuteChanged();
+        }
+
+        private bool CanGotoLastPattern()
+        {
+            return _patterns.PatternIndex < _patterns.PatternCount - 1;
         }
     }
 }

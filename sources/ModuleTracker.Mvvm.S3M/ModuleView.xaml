@@ -36,6 +36,16 @@
     <DockPanel>
         <TextBlock DockPanel.Dock="Bottom" Name="Dummy" Visibility="Collapsed"/>
 
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+            <Button Content="First" Command="{Binding GotoFirstPatternCommand}" Margin="0,3,3,0" />
+            <Button Content="Previous" Command="{Binding GotoPreviousPatternCommand}" Margin="0,3,3,0" />
+            <TextBlock TextAlignment="Center" Margin="0,3,3,0">
+                <Run Text="{Binding Patterns.PatternIndex, Mode=OneWay}" /> / <Run Text="{Binding Patterns.PatternCount, Mode=OneWay}" />
+            </TextBlock>
+            <Button Content="Next" Command="{Binding GotoNextPatternCommand}" Margin="0,3,3,0" />
+            <Button Content="Last" Command="{Binding GotoLastPatternCommand}" Margin="0,3,0,0" />
+        </UniformGrid>
+
         <DataGrid Name="DataGrid"
                   ItemsSource="{Binding Patterns}"
                   AutoGenerateColumns="False"
