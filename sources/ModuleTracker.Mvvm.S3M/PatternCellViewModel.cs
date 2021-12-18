@@ -21,7 +21,7 @@ namespace ModuleTracker.Mvvm.S3M
 {
     public sealed class PatternCellViewModel : ObservableObject
     {
-        private PatternCell Cell { get; }
+        private readonly PatternCell _cell;
 
         public string Text
         {
@@ -35,7 +35,7 @@ namespace ModuleTracker.Mvvm.S3M
         {
             get
             {
-                if (!Cell.NoteAndInstrumentPresent)
+                if (!_cell.NoteAndInstrumentPresent)
                 {
                     return "---";
                 }
@@ -47,11 +47,11 @@ namespace ModuleTracker.Mvvm.S3M
         {
             get
             {
-                if (!Cell.NoteAndInstrumentPresent)
+                if (!_cell.NoteAndInstrumentPresent)
                 {
                     return "--";
                 }
-                return Cell.Semitone switch
+                return _cell.Semitone switch
                 {
                     0 => "C-",
                     1 => "C#",
@@ -74,11 +74,11 @@ namespace ModuleTracker.Mvvm.S3M
         {
             get
             {
-                if (!Cell.NoteAndInstrumentPresent)
+                if (!_cell.NoteAndInstrumentPresent)
                 {
                     return "-";
                 }
-                return Cell.Octave.ToString("D1");
+                return _cell.Octave.ToString("D1");
             }
         }
 
@@ -86,11 +86,11 @@ namespace ModuleTracker.Mvvm.S3M
         {
             get
             {
-                if (!Cell.NoteAndInstrumentPresent)
+                if (!_cell.NoteAndInstrumentPresent)
                 {
                     return "--";
                 }
-                return Cell.Instrument.ToString("D2");
+                return _cell.Instrument.ToString("D2");
             }
         }
 
@@ -98,11 +98,11 @@ namespace ModuleTracker.Mvvm.S3M
         {
             get
             {
-                if (!Cell.VolumePresent)
+                if (!_cell.VolumePresent)
                 {
                     return "--";
                 }
-                return Cell.Volume.ToString("D2");
+                return _cell.Volume.ToString("D2");
             }
         }
 
@@ -110,12 +110,12 @@ namespace ModuleTracker.Mvvm.S3M
         {
             get
             {
-                if (!Cell.CommandAndInfoPresent)
+                if (!_cell.CommandAndInfoPresent)
                 {
                     return "-";
                 }
 
-                return Cell.Command switch
+                return _cell.Command switch
                 {
                     0x01 => "A",
                     0x02 => "B",
@@ -152,11 +152,11 @@ namespace ModuleTracker.Mvvm.S3M
         {
             get
             {
-                if (!Cell.CommandAndInfoPresent)
+                if (!_cell.CommandAndInfoPresent)
                 {
                     return "--";
                 }
-                return Cell.Info.ToString("D2");
+                return _cell.Info.ToString("D2");
             }
         }
 
@@ -166,7 +166,7 @@ namespace ModuleTracker.Mvvm.S3M
 
         public PatternCellViewModel(PatternCell cell)
         {
-            Cell = cell ?? throw new ArgumentNullException(nameof(cell));
+            _cell = cell ?? throw new ArgumentNullException(nameof(cell));
         }
     }
 }
