@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -29,9 +28,9 @@ namespace ModuleTracker.Mvvm.S3M
 
         private readonly int _rowIndex;
 
-        private readonly List<PatternCellViewModel> _channels;
+        private readonly List<PatternCellViewModel> _cells;
 
-        public List<PatternCellViewModel> Channels => _channels;
+        public IList<PatternCellViewModel> Cells => _cells;
 
         public int PatternIndex => _patternIndex;
 
@@ -46,7 +45,7 @@ namespace ModuleTracker.Mvvm.S3M
             var pattern = _module.Patterns[_patternIndex];
             var row = pattern[_rowIndex];
             var channels = row.Select(channel => new PatternCellViewModel(channel));
-            _channels = new List<PatternCellViewModel>(channels);
+            _cells = new List<PatternCellViewModel>(channels);
         }
     }
 }

@@ -93,7 +93,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[0], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[0], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -114,7 +114,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[1], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[1], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -135,7 +135,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[2], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[2], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -156,7 +156,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[3], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[3], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -177,7 +177,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[4], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[4], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -198,7 +198,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[5], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[5], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -219,7 +219,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[6], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[6], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -240,7 +240,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[7], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[7], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -261,7 +261,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[8], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[8], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -282,7 +282,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[9], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[9], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -303,7 +303,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[10], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[10], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -324,7 +324,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[11], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[11], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -345,7 +345,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[12], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[12], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -366,7 +366,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[13], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[13], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -387,7 +387,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[14], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[14], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -408,7 +408,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[15], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[15], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -429,7 +429,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[16], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[16], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -450,7 +450,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[17], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[17], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -471,7 +471,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[18], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[18], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -492,7 +492,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[19], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[19], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -513,7 +513,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[20], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[20], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -534,7 +534,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[21], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[21], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -555,7 +555,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[22], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[22], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -576,7 +576,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[23], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[23], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -597,7 +597,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[24], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[24], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -618,7 +618,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[25], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[25], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -639,7 +639,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[26], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[26], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -660,7 +660,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[27], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[27], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -681,7 +681,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[28], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[28], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -702,7 +702,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[29], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[29], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -723,7 +723,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[30], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[30], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -744,7 +744,7 @@
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <mtms:PatternCellView DataContext="{Binding Path=Channels[31], Mode=OneWay}"/>
+                            <mtms:PatternCellView DataContext="{Binding Path=Cells[31], Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
