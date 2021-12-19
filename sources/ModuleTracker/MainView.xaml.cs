@@ -14,7 +14,6 @@
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ModuleTracker
 {
@@ -23,11 +22,15 @@ namespace ModuleTracker
     /// </summary>
     internal partial class MainView : Window
     {
-        public MainView()
+        private MainView()
         {
             InitializeComponent();
+        }
 
-            DataContext = App.Current.Services.GetService<MainViewModel>();
+        public MainView(MainViewModel viewModel)
+        : this()
+        {
+            DataContext = viewModel;
         }
     }
 }

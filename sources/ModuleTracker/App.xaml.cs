@@ -14,6 +14,8 @@
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
 using Microsoft.Extensions.DependencyInjection;
+using ModuleTracker.Formats.S3M;
+using ModuleTracker.Mvvm.S3M;
 using ModuleTracker.Services;
 using System;
 using System.Windows;
@@ -25,16 +27,18 @@ namespace ModuleTracker
     /// </summary>
     public partial class App : Application
     {
-        public static new App Current => (App)Application.Current;
-
-        public IServiceProvider Services { get; } = ConfigureServices();
-
-        private static IServiceProvider ConfigureServices()
+        protected override void OnStartup(StartupEventArgs e)
         {
+            base.OnStartup(e);
+
             var services = new ServiceCollection();
             services.AddSingleton<IOpenFileService, OpenFileService>();
             services.AddTransient<MainViewModel>();
-            return services.BuildServiceProvider();
+            var serviceProvider = services.BuildServiceProvider();
+
+            var mainViewModel = serviceProvider.GetService<MainViewModel>();
+            var mainView = new MainView(mainViewModel!);
+            mainView.Show();
         }
     }
 }
