@@ -13,31 +13,34 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
+using System;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using ModuleTracker.Mvvm;
+using ModuleTracker.Services;
 
 namespace ModuleTracker
 {
     public sealed class PropertiesViewModel : ToolboxViewModel, IRecipient<ActiveObjectChangedMessage>
     {
-        private object _activeObject = null!;
+        private object? _activeObject = null;
 
-        public object ActiveObject
+        private readonly IPropertyEditorService _service;
+
+        public object? ActiveObject
         {
             get => _activeObject;
 
             private set => SetProperty(ref _activeObject, value);
         }
 
+        public PropertiesViewModel(IPropertyEditorService service)
+        {
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+        }
 
         public void Receive(ActiveObjectChangedMessage message)
         {
-            ActiveObject = message.Value;
-        }
-
-        public PropertiesViewModel()
-        {
-            PaneTitle = "Properties";
+            ActiveObject = _service.GetPropertyEditor(message.Value);
         }
 
         protected override void OnActivated()

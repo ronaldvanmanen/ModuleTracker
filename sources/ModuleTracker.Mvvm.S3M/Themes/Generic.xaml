@@ -18,8 +18,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ModuleTracker.Mvvm.S3M">
 
-    <DataTemplate DataType="{x:Type local:ModuleViewModel}">
-        <local:ModuleView />
+    <DataTemplate DataType="{x:Type local:ModuleDocumentViewModel}">
+        <local:ModuleDocumentView />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type local:InstrumentListViewModel}">

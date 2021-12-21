@@ -14,15 +14,13 @@
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using Microsoft.Toolkit.Mvvm.Input;
 using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
 {
-    public sealed class ModuleViewModel : DocumentViewModel
+    public sealed class ModuleDocumentViewModel : DocumentViewModel
     {
         private readonly Module _module;
 
@@ -38,121 +36,21 @@ namespace ModuleTracker.Mvvm.S3M
 
         private readonly RelayCommand _gotoLastPatternCommand;
 
-        [Browsable(false)]
         public ICommand GotoFirstPatternCommand => _gotoFirstPatternCommand;
 
-        [Browsable(false)]
         public ICommand GotoPreviousPatternCommand => _gotoPreviousPatternCommand;
 
-        [Browsable(false)]
         public ICommand GotoNextPatternCommand => _gotoNextPatternCommand;
 
-        [Browsable(false)]
         public ICommand GotoLastPatternCommand => _gotoLastPatternCommand;
 
-        [Category("General")]
-        [DisplayName("Title")]
-        [Description("Sets the title of the module.")]
-        [MaxLength(Module.MaxTitleLength)]
-        public string Title
-        {
-            get
-            {
-                return _module.Title;
-            }
-            set
-            {
-                SetProperty(_module.Title, value, _module, (module, title) => module.Title = title);
-            }
-        }
-
-        [Category("General")]
-        [DisplayName("Global Volume")]
-        [Description("Sets the global volume of the module affecting all channels.")]
-        [Range(Module.MinVolume, Module.MaxVolume)]
-        public byte GlobalVolume
-        {
-            get
-            {
-                return _module.GlobalVolume;
-            }
-            set
-            {
-                SetProperty(_module.GlobalVolume, value, _module, (module, globalVolume) => module.GlobalVolume = globalVolume);
-            }
-        }
-
-        [Category("General")]
-        [DisplayName("Initial Speed")]
-        [Description("Sets the speed at which the module is played when no other speed is specified.")]
-        [DefaultValue(Module.DefaultSpeed)]
-        [Range(Module.MinSpeed, Module.MaxSpeed)]
-        public byte GlobalSpeed
-        {
-            get
-            {
-                return _module.GlobalSpeed;
-            }
-            set
-            {
-                SetProperty(_module.GlobalSpeed, value, _module, (module, globalSpeed) => module.GlobalSpeed = globalSpeed);
-            }
-        }
-
-        [Category("General")]
-        [DisplayName("Initial Tempo")]
-        [Description("Sets the tempo at which the module is played when no other tempo is specified.")]
-        [DefaultValue(Module.DefaultTempo)]
-        public byte GlobalTempo
-        {
-            get
-            {
-                return _module.GlobalTempo;
-            }
-            set
-            {
-                SetProperty(_module.GlobalTempo, value, _module, (module, globalTempo) => module.GlobalTempo = globalTempo);
-            }
-        }
-
-        [Category("General")]
-        [DisplayName("Stereo Playback")]
-        [Description("Enable stereo playblack of the module on stereo cards, otherwise the song will be played mono regardless of the channel allocations.")]
-        public bool StereoPlayback
-        {
-            get
-            {
-                return _module.StereoPlayback;
-            }
-            set
-            {
-                SetProperty(_module.StereoPlayback, value, _module, (module, stereo) => module.StereoPlayback = stereo);
-            }
-        }
-
-        [Category("General")]
-        [DisplayName("Master Volume")]
-        [Description("Sets the master volume of the module.")]
-        [Range(Module.MinMasterVolume, Module.MaxMasterVolume)]
-        public byte MasterVolume
-        {
-            get
-            {
-                return _module.MasterVolume;
-            }
-            set
-            {
-                SetProperty(_module.MasterVolume, value, _module, (module, masterVolume) => module.MasterVolume = masterVolume);
-            }
-        }
-
-        [Browsable(false)]
         public ChannelViewModelCollection Channels => _channels;
 
-        [Browsable(false)]
         public PatternViewModelCollection Patterns => _patterns;
 
-        public ModuleViewModel(Module module)
+        public Module Module => _module;
+
+        public ModuleDocumentViewModel(Module module)
         {
             _module = module ?? throw new ArgumentNullException(nameof(module));
             _channels = new ChannelViewModelCollection(_module);

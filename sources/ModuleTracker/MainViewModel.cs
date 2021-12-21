@@ -56,7 +56,7 @@ namespace ModuleTracker
 
         public ICommand ExitCommand { get; }
 
-        public MainViewModel(IOpenFileService openFileService)
+        public MainViewModel(IOpenFileService openFileService, IPropertyEditorService propertyEditorService)
         {
             OpenFileService = openFileService ?? throw new ArgumentNullException(nameof(openFileService));
             OpenFileCommand = new AsyncRelayCommand(ExecuteOpenFile);
@@ -64,9 +64,12 @@ namespace ModuleTracker
             Documents = new ObservableCollection<DocumentViewModel>();
             Tools = new ObservableCollection<ToolboxViewModel>
             {
-                new PropertiesViewModel
+                new PropertiesViewModel(propertyEditorService)
                 {
-                    IsPaneVisible = true
+                    IsPaneVisible = true,
+                    IsPaneActive = false,
+                    IsPaneSelected = false,
+                    PaneTitle = "Properties",
                 }
             };
         }
@@ -81,7 +84,7 @@ namespace ModuleTracker
                     try
                     {
                         var module = Module.Deserialize(moduleFileName);
-                        var moduleViewModel = new ModuleViewModel(module)
+                        var moduleViewModel = new ModuleDocumentViewModel(module)
                         {
                             PaneTitle = Path.GetFileName(moduleFileName)
                         };

@@ -18,11 +18,11 @@ using System.Windows.Controls;
 namespace ModuleTracker.Mvvm.S3M
 {
     /// <summary>
-    /// Interaction logic for ModuleView.xaml
+    /// Interaction logic for ModuleDocumentView.xaml
     /// </summary>
-    public partial class ModuleView : UserControl
+    public partial class ModuleDocumentView : UserControl
     {
-        public ModuleView()
+        public ModuleDocumentView()
         {
             InitializeComponent();
         }

@@ -33,8 +33,13 @@ namespace ModuleTracker
 
             var services = new ServiceCollection();
             services.AddSingleton<IOpenFileService, OpenFileService>();
+            services.AddSingleton<IPropertyEditorService, PropertyEditorService>();
             services.AddTransient<MainViewModel>();
+
             var serviceProvider = services.BuildServiceProvider();
+            var propertyEditorService = serviceProvider.GetService<IPropertyEditorService>();
+            propertyEditorService?.RegisterPropertyEditor<Module>(module => new ModulePropertiesViewModel(module));
+            propertyEditorService?.RegisterPropertyEditor<ModuleDocumentViewModel>(moduleViewModel => new ModulePropertiesViewModel(moduleViewModel.Module));
 
             var mainViewModel = serviceProvider.GetService<MainViewModel>();
             var mainView = new MainView(mainViewModel!);

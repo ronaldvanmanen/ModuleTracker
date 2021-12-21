@@ -13,18 +13,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
-using System.Windows.Controls;
+using System;
 
-namespace ModuleTracker
+namespace ModuleTracker.Services
 {
-    /// <summary>
-    /// Interaction logic for PropertiesView.xaml
-    /// </summary>
-    public partial class PropertiesView : UserControl
+    public interface IPropertyEditorService
     {
-        public PropertiesView()
-        {
-            InitializeComponent();
-        }
+        void RegisterPropertyEditor<T>(Func<T, object> factoryMethod);
+
+        void UnregisterPropertyEditor<T>();
+
+        object? GetPropertyEditor(object editableObject);
     }
 }
