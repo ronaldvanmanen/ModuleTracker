@@ -22,8 +22,8 @@
         <local:ModuleDocumentView />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type local:InstrumentListViewModel}">
-        <local:InstrumentListView />
+    <DataTemplate DataType="{x:Type local:ModuleInstrumentsViewModel}">
+        <local:ModuleInstrumentsView />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type local:PatternCellViewModel}">

@@ -66,10 +66,19 @@ namespace ModuleTracker
             {
                 new PropertiesViewModel(propertyEditorService)
                 {
+                    IsActive = true,
                     IsPaneVisible = true,
                     IsPaneActive = false,
                     IsPaneSelected = false,
                     PaneTitle = "Properties",
+                },
+                new ModuleInstrumentsViewModel
+                {
+                    IsActive = true,
+                    IsPaneVisible = true,
+                    IsPaneActive = false,
+                    IsPaneSelected = false,
+                    PaneTitle = "Instruments",
                 }
             };
         }

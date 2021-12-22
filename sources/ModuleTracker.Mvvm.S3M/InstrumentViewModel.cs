@@ -13,6 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
+using System.ComponentModel;
 using ModuleTracker.Formats.S3M;
 
 namespace ModuleTracker.Mvvm.S3M
@@ -21,6 +22,8 @@ namespace ModuleTracker.Mvvm.S3M
     {
         protected Instrument Instrument { get; }
 
+        [DisplayName("Filename")]
+        [Description("The original filename of the instrument")]
         public string Filename => Instrument.Filename;
 
         protected InstrumentViewModel(Instrument instrument)
