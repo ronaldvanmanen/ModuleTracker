@@ -14,6 +14,8 @@
 // along with Module Tracker.  If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Microsoft.Toolkit.Mvvm.Input;
 using ModuleTracker.Formats.S3M;
@@ -28,6 +30,8 @@ namespace ModuleTracker.Mvvm.S3M
 
         private readonly PatternViewModelCollection _patterns;
 
+        private readonly ObservableCollection<int> _patternOrderList;
+
         private readonly RelayCommand _gotoFirstPatternCommand;
 
         private readonly RelayCommand _gotoPreviousPatternCommand;
@@ -35,6 +39,25 @@ namespace ModuleTracker.Mvvm.S3M
         private readonly RelayCommand _gotoNextPatternCommand;
 
         private readonly RelayCommand _gotoLastPatternCommand;
+
+        public int PatternIndex
+        {
+            get => _patterns.PatternIndex;
+            set
+            {
+                if (_patterns.GotoPattern(value))
+                {
+                    _gotoFirstPatternCommand.NotifyCanExecuteChanged();
+                    _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
+                    _gotoNextPatternCommand.NotifyCanExecuteChanged();
+                    _gotoLastPatternCommand.NotifyCanExecuteChanged();
+                    OnPropertyChanged(nameof(PatternIndex));
+                    OnPropertyChanged(nameof(LastPatternIndex));
+                }
+            }
+        }
+
+        public int LastPatternIndex => _patterns.PatternCount - 1;
 
         public ICommand GotoFirstPatternCommand => _gotoFirstPatternCommand;
 
@@ -48,6 +71,8 @@ namespace ModuleTracker.Mvvm.S3M
 
         public PatternViewModelCollection Patterns => _patterns;
 
+        public ObservableCollection<int> PatternOrder => _patternOrderList;
+
         public Module Module => _module;
 
         public ModuleDocumentViewModel(Module module)
@@ -55,6 +80,7 @@ namespace ModuleTracker.Mvvm.S3M
             _module = module ?? throw new ArgumentNullException(nameof(module));
             _channels = new ChannelViewModelCollection(_module);
             _patterns = new PatternViewModelCollection(_module);
+            _patternOrderList = new ObservableCollection<int>(_module.PatternOrderList.Select(patternOrder => (int)patternOrder));
             _gotoFirstPatternCommand = new RelayCommand(GotoFirstPattern, CanGotoFirstPattern);
             _gotoPreviousPatternCommand = new RelayCommand(GotoPreviousPattern, CanGotoPreviousPattern);
             _gotoNextPatternCommand = new RelayCommand(GotoNextPattern, CanGotoNextPattern);
@@ -63,58 +89,42 @@ namespace ModuleTracker.Mvvm.S3M
 
         private void GotoFirstPattern()
         {
-            _patterns.GotoFirstPattern();
-            _gotoFirstPatternCommand.NotifyCanExecuteChanged();
-            _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
-            _gotoNextPatternCommand.NotifyCanExecuteChanged();
-            _gotoLastPatternCommand.NotifyCanExecuteChanged();
+            PatternIndex = 0;
         }
 
         private bool CanGotoFirstPattern()
         {
-            return _patterns.PatternIndex > 0 && _patterns.PatternCount > 1;
+            return PatternIndex > 0 && LastPatternIndex > 0;
         }
 
         private void GotoPreviousPattern()
         {
-            _patterns.GotoPreviousPattern();
-            _gotoFirstPatternCommand.NotifyCanExecuteChanged();
-            _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
-            _gotoNextPatternCommand.NotifyCanExecuteChanged();
-            _gotoLastPatternCommand.NotifyCanExecuteChanged();
+            PatternIndex = PatternIndex - 1;
         }
 
         private bool CanGotoPreviousPattern()
         {
-            return _patterns.PatternIndex > 0 && _patterns.PatternCount > 1;
+            return PatternIndex > 0 && LastPatternIndex > 1;
         }
 
         private void GotoNextPattern()
         {
-            _patterns.GotoNextPattern();
-            _gotoFirstPatternCommand.NotifyCanExecuteChanged();
-            _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
-            _gotoNextPatternCommand.NotifyCanExecuteChanged();
-            _gotoLastPatternCommand.NotifyCanExecuteChanged();
+            PatternIndex = PatternIndex + 1;
         }
 
         private bool CanGotoNextPattern()
         {
-            return _patterns.PatternIndex < _patterns.PatternCount - 1;
+            return PatternIndex < LastPatternIndex;
         }
 
         private void GotoLastPattern()
         {
-            _patterns.GotoLastPattern();
-            _gotoFirstPatternCommand.NotifyCanExecuteChanged();
-            _gotoPreviousPatternCommand.NotifyCanExecuteChanged();
-            _gotoNextPatternCommand.NotifyCanExecuteChanged();
-            _gotoLastPatternCommand.NotifyCanExecuteChanged();
+            PatternIndex = LastPatternIndex;
         }
 
         private bool CanGotoLastPattern()
         {
-            return _patterns.PatternIndex < _patterns.PatternCount - 1;
+            return PatternIndex < LastPatternIndex;
         }
     }
 }

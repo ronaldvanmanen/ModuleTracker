@@ -37,14 +37,25 @@
         <TextBlock DockPanel.Dock="Bottom" Name="Dummy" Visibility="Collapsed"/>
 
         <UniformGrid DockPanel.Dock="Bottom" Rows="1">
-            <Button Content="First" Command="{Binding GotoFirstPatternCommand}" Margin="0,3,3,0" />
-            <Button Content="Previous" Command="{Binding GotoPreviousPatternCommand}" Margin="0,3,3,0" />
-            <TextBlock TextAlignment="Center" Margin="0,3,3,0">
-                <Run Text="{Binding Patterns.PatternIndex, Mode=OneWay}" /> / <Run Text="{Binding Patterns.PatternCount, Mode=OneWay}" />
+            <Button Content="First" Command="{Binding GotoFirstPatternCommand}" Margin="0,0,3,0" />
+            <Button Content="Previous" Command="{Binding GotoPreviousPatternCommand}" Margin="0,0,3,0" />
+            <TextBlock TextAlignment="Center" Margin="0,0,3,0">
+                <Run Text="{Binding PatternIndex, Mode=OneWay}" /> / <Run Text="{Binding LastPatternIndex, Mode=OneWay}" />
             </TextBlock>
-            <Button Content="Next" Command="{Binding GotoNextPatternCommand}" Margin="0,3,3,0" />
-            <Button Content="Last" Command="{Binding GotoLastPatternCommand}" Margin="0,3,0,0" />
+            <Button Content="Next" Command="{Binding GotoNextPatternCommand}" Margin="0,0,3,0" />
+            <Button Content="Last" Command="{Binding GotoLastPatternCommand}" Margin="0,0,0,0" />
         </UniformGrid>
+
+        <ListBox DockPanel.Dock="Bottom"
+                 Margin="0,3,0,3"
+                 ItemsSource="{Binding PatternOrder}"
+                 SelectedItem="{Binding PatternIndex, Mode=TwoWay}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel IsItemsHost="True" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
 
         <DataGrid Name="DataGrid"
                   ItemsSource="{Binding Patterns}"

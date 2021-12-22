@@ -106,11 +106,11 @@ namespace ModuleTracker.Mvvm.S3M
             GotoPattern(PatternCount - 1);
         }
 
-        public void GotoPattern(int patternIndex)
+        public bool GotoPattern(int patternIndex)
         {
             if (patternIndex < 0 || patternIndex >= _module.Patterns.Count)
             {
-                return;
+                return false;
             }
 
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(PatternIndex)));
@@ -121,6 +121,8 @@ namespace ModuleTracker.Mvvm.S3M
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PatternIndex)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PatternCount)));
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+            return true;
         }
 
         public IEnumerator<PatternRowViewModel> GetEnumerator()
