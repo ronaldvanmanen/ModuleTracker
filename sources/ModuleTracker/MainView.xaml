@@ -33,12 +33,17 @@
         <mtm:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
 
+    <mtm:Window.CommandMappings>
+        <mtm:CommandMapping Source="mtm:ApplicationCommands.Open" Sink="{Binding OpenFileCommand}" />
+        <mtm:CommandMapping Source="mtm:ApplicationCommands.Exit" Sink="{Binding ExitCommand}" />
+    </mtm:Window.CommandMappings>
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open" Command="{Binding Path=OpenFileCommand}" />
+                <MenuItem Header="_Open" Command="mtm:ApplicationCommands.Open" />
                 <Separator/>
-                <MenuItem Header="E_xit" Command="{Binding Path=ExitCommand}" />
+                <MenuItem Header="E_xit" Command="mtm:ApplicationCommands.Exit" />
             </MenuItem>
         </Menu>
 
